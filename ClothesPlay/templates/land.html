@@ -1,0 +1,175 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		@font-face {
+		  font-family: 'iconfont';
+		  src: url('{% static 'logo/iconfont.eot' %}'); /* IE9*/
+		  src: url('{% static 'logo/iconfont.eot?#iefix' %}') format('embedded-opentype'), /* IE6-IE8 */
+		  url('{% static 'logo/iconfont.woff' %}') format('woff'), /* chrome、firefox */
+		  url('{% static 'logo/iconfont.ttf' %}') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+		  url('{% static 'logo/iconfont.svg#iconfont' %}') format('svg'); /* iOS 4.1- */
+		}
+		.I-ico{
+		    font-family:"iconfont" !important;
+		    font-size:16px;font-style:normal;
+		    -webkit-font-smoothing: antialiased;
+		    -webkit-text-stroke-width: 0.2px;
+		    -moz-osx-font-smoothing: grayscale;
+		   
+		    }		
+			
+			*{margin: 0px; padding: 0px;}
+			body,html{font-size: 12px;height: 706px;}
+			a{text-decoration: none;}
+			li{list-style-type: none;}
+			.g-hd{ width: 930px;height: 150px; margin: 0 166.5px;}
+			.m-hdr a{text-decoration: none; font-size: 14px; font-family: "微软雅黑";color: black;}
+			.m-hdl img{margin-top:80px;}
+			.m-hdr{margin-top: 110px;float: right;}
+			.m-hdr a:hover{color: red;}
+			.conent{width: 100%; height: 410px;}
+			.g-bd{width: 930px; height: 410px; margin: 0px 166.5px}
+			.m-ybad{width: 570px; height:414px ; float: left;}
+			.m-ybad a{width: 570px; height: 414px;display: inline-block;}
+			.m-box{float: right;padding: 20px;width: 320px;height: 283px;margin-top: 40px;border-radius: 3px;background: rgba(0,0,0,.4);}
+    		#J_userName{padding: 12px 0px 12px 24px; width: 290px; height: 14px; outline:none;}
+    		#J_pwd{padding: 12px 0px 12px 24px; width: 290px; height: 14px;outline:none;}
+    		.Safe{color: white;}
+    		#J_loginSafe{margin-right: 6px;}
+    		#J_submit{width: 318px; height: 36px; margin-top: 20px;margin-bottom: 10px; border: 1px solid #f1056f; border-radius: 3px; background: #f1056f; font-size:16px;color: white;}
+    		.m-box .reg{color: #f1056f;}
+    		.m-box .msg-error{width: 298px; line-height: 24px; margin: 10px 0px;padding: 0px 0px 0px 25px; border: 1px solid #ffb3b3; color: #eb2323; background: #ffe0de; }
+    		.msg-box{position: relative; display: none;}
+    		.tips a:hover{text-decoration: underline;}
+    		
+    		.g-ft {padding: 20px 0px;text-align: center;}
+    		.g-ft .link{margin: 15px 0px; }
+    		.g-ft .link a{color: #666;}
+    		.g-ft .link a:hover{color: red;}
+    		.copyRight {color: #666; line-height: 24px;}
+    		.g-ft .f-record{color: #666; line-height: 24px;}
+		</style>
+		<script src="{% static 'js/jquery-1.12.3.js' %}"></script>
+		<script src="{% static 'js/jquery.cookie.js' %}"></script>
+
+{#		<script>#}
+{#			$(function(){#}
+{#				$("#J_userName").focus(function(){#}
+{#					$("#J_userName").css("border-color","#F10582");#}
+{#					$("#J_userName").siblings().css("color","#F10582");#}
+{#					$(".msg-box").css("display","none");#}
+{#				})#}
+{#				$("#J_userName").blur(function(){#}
+{#					$("#J_userName").css("border-color","");#}
+{#					$("#J_userName").siblings().css("color","");#}
+{#					#}
+{#				})#}
+{#				$("#J_pwd").focus(function(){#}
+{#					$("#J_pwd").css("border-color","#F10582");#}
+{#					$("#J_pwd").siblings().css("color","#F10582");#}
+{#					$(".msg-box").css("display","none");#}
+{#				})#}
+{#				$("#J_pwd").blur(function(){#}
+{#					$("#J_pwd").css("border-color","");#}
+{#					$("#J_pwd").siblings().css("color","");#}
+{#				})#}
+{#				$(":button").click(function(){#}
+{#					var users = $.cookie("users");#}
+{#					if (users) {						#}
+{#						users = JSON.parse(users); //cookie中的所有注册过的用户#}
+{#						#}
+{#						var isExists = false; //表示是否存在该用户#}
+{#						for (var i=0; i<users.length; i++) {#}
+{#							if ( users[i].name == $("#J_userName").val() && users[i].pwd == $("#J_pwd").val() ) {#}
+{#								alert(" 登录成功! ");#}
+{#								$("#J_userName").val("");#}
+{#								$("#J_pwd").val("");#}
+{#								#}
+{#								isExists = true;#}
+{#								window.location.href='index.html'#}
+{#							}#}
+{#						}#}
+{#						#}
+{#						if (!isExists) {#}
+{#							console.log("用户名或密码错误, 请重新输入!");#}
+{#							$(".msg-box").css("display","block")#}
+{#							$(".msg-box").find(".msg-error").html("用户名或密码错误, 请重新输入!")#}
+{#						}#}
+{#						#}
+{#					}#}
+{#					else {#}
+{#						console.log("不存在用户, 请先注册!");#}
+{#					}#}
+{#				})#}
+{##}
+{#			})#}
+{#			#}
+{#		</script>#}
+	</head>
+	<body>
+		<div class="g-hd">
+			<a href="{% url 'clothes:index' %}" class="m-hdl"><img src="{% static 'img/imgs/loadlogo.png' %}" alt="衣扮网-logo"></a>
+			<div class="m-hdr">
+				<a href="{% url 'clothes:index' %}">首页</a>|
+				<a href="{% url 'clothes:register' %}">注册</a>|
+				<a href="#">帮助中心</a>
+			</div>			
+		</div>
+{#		<div class="conent" style="background: url(img/imgs/londbigphotoi.jpg) no-repeat center;">#}
+        <div class="conent" style="background: url({% static 'img/imgs/londbigphotoi.jpg' %}) no-repeat center;">
+
+			<div class="g-bd">
+				<div class="m-ybad">
+					<a href="#"></a>
+               	</div>
+				<div class="m-box">
+					<form id="loginForm" method="post" action="{% url 'clothes:land' %}">
+						{% csrf_token %}
+                        <div class="msg-box">
+							<span class="I-ico" style="position: absolute;left: 6px; top: 5px;color: red;">&#xe678;</span>
+							<div class="msg-error">请输入用户名，密码！</div>
+						</div>
+                        {% if err %}
+                                <div style="color: red">{{ err }}</div>
+                            {% endif %}
+						<ul>
+							<li class="s-white" style="margin-bottom: 10px; color: white;">账号：</li>
+							<li class="pos" style="position: relative; border-radius:3px; margin-bottom: 10px;">
+								<span class="I-ico" style=" position: absolute;top:12px; left: 9px;">&#xe6aa;</span>
+								<input type="text" class="text-box un-border z-text-box" id="J_userName" name="username" placeholder="试客联盟/众划算帐号" value="" />
+							</li>
+							<li class="s-white" style="margin-bottom: 10px; color: white;">密码：</li>
+							<li class="pos" style="position: relative; border-radius:3px;margin-bottom: 10px;">
+								<span class="I-ico" style="position: absolute;left: 11px; top: 9px;">&#xe686;</span>
+								<input type="password" class="text-box pw-border" id="J_pwd" name="password"  placeholder="请输入密码" maxlength="20"/>
+							</li>
+							<li class="check" style="position: relative;">
+								<div class="Safe" style="position: relative;">
+									<input type="checkbox" id="J_loginSafe" checked="checked"/><label style="position: absolute;left: 18px;" for="J_loginSafe">记住登录名</label>
+								</div>
+								<div class="tips" style="position: absolute; right: 0px; top: 0px; color: white;">
+									<a target="_blank" href="#" style="color: white;">忘记密码？</a>
+								</div>
+							</li>
+							<li>
+								<input type="submit" name="button" id="J_submit" class="login-btn"  value="登  录"/>
+							</li>
+							<li style="color: white; margin-bottom: 10px;">还没有账号？<a href="{% url 'clothes:register' %}" class="reg">立即注册</a></li>
+
+						</ul>
+					</form>
+				</div>	
+			</div>
+		</div>
+		<div class="g-ft">
+			<div class="link"><a href="#" target="_blank">购物指南</a> | <a href="#" target="_blank">招商合作</a> | <a href="#" target="_blank">关于我们</a></div>
+			<p class="copyRight">copyright 2006-2015 yibanmall.com 版权所有 桂ICP备15008717号</p>
+			<p><a target="_blank" href="#" class="f-record"><img src="{% static 'img/imgs/20160910141721.JPG' %}" style="height: 22px;"/>  桂公网安备 45010702000034号</a></p>
+		</div>
+		
+	</body>
+</html>

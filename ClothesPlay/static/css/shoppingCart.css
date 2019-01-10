@@ -1,0 +1,226 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+img{
+	
+	border: 0;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+.head-layout,#my-shopping-cart{
+	margin: auto;
+	width: 1000px;
+}
+.home-head{
+	width: 100%;
+}
+.head-layout{
+	
+	height: 100px;
+	
+}
+.left-logo{
+	padding: 13px 0;
+	float: left;
+
+}
+.head-list ul{
+	margin-left:360px;
+
+}
+.head-list ul li{
+	float:left;
+	width: 160px;
+	height: 70px;
+	padding: 15px 0;
+	
+}
+#my-shopping-cart{
+
+
+	
+	
+}
+#my-shopping-cart .cart-text{
+	height: 83px;
+	
+	border-bottom: 2px solid #999;
+}
+#my-shopping-cart .cart-text h1{
+	padding-top: 21px;
+	color: #555;
+	font-size: 22px;
+}
+#my-shopping-cart .cart-text p{
+	color: #aaa;
+	line-height: 40px;
+	font-size: 12px;
+}
+.shoppping-cart-content .w80{
+	width: 80px;
+}
+.shoppping-cart-content .w120{
+	width: 120px;
+}
+.shoppping-cart-content .w560{
+	width: 560px;
+}
+.shoppping-cart-content{
+	min-height: 300px;
+}
+.shoppping-cart-content table tr td{
+	text-align: center;
+	line-height: 38px;
+}
+.shoppping-cart-content-head{
+	height: 38px;
+	border-bottom: 1px solid #ddd;
+	background: #fff;
+}
+.shoppping-cart-content-title{
+	background: #fefce7;
+	height: 38px;
+	border-bottom: 1px solid #ddd;
+}
+.shoppping-cart-content-title .store-title{
+	line-height: 38px;
+	float: left;
+
+}
+.shoppping-cart-content-title .store-activity{
+	padding: 0 10px;
+	border-radius: 10px;
+	float: right;
+	background: #090;
+	
+	margin-top: 10px;
+	margin-right: 5px;
+}
+.shoppping-cart-content-title .store-activity a{
+	color: #FFF;
+}
+.SCA-btn-left:hover,.SCA-btn-right:hover{
+	background: #49afcd;
+	cursor: pointer;
+}
+.SCA-btn-left title{
+	width: 50px;
+	height: 30px;
+}
+.shopping-cart-amount input{
+	width: 20px;
+}
+.shopping-cart-amount button{
+	border: 0;
+	width: 15px;
+	height: 15px;
+	text-align: center;
+	line-height: 10px;
+}
+.shopping-list{
+	height: 68px;
+	
+}
+.goods-img-title img{
+	width: 52px;
+	height: 52px;
+	border: 2px solid #ccc;
+	float: left;
+}
+.goods-img-title a span{
+	font-size: 12px;
+	color: #333;
+	font-weight: bolder;
+	float: left;
+	padding-left: 15px;
+}
+.shopping-list td{
+	border-bottom: 1px solid #ddd;
+}
+.SCC-del a{
+	font-size: 14px;
+	
+}
+.tstore-totle-money{
+	height: 48px;
+	border-bottom: 1px solid #ddd;
+}
+.TTM-text{
+	text-align: right;
+	width: 850px;
+	float: left;
+	font-size: 12px;
+	color: #333;
+	line-height: 23px;
+}
+
+.TTM-all-money{
+	width: 125px;
+	float: right;
+	font-size: 12px;
+	color: #666;
+	
+}
+.totle-money-text{
+	width: 970px;
+	font-size: 18px;
+	height: 54px;
+	line-height: 54px;
+	text-align: right;
+	padding-right: 30px;
+	border-bottom: 2px solid #999;
+}
+.totle-money-text span{
+	color: #d93600;
+	font-weight: bolder;
+}
+.next-step{
+	height: 80px;
+	border-bottom: 1px solid #ddd;
+}
+.next-step-tetx{
+	width: 228px;
+	height: 38px;
+	background: #ff4401;
+	float: right;
+	margin-top: 20px;
+	border: 2px solid #df3a00;
+}
+.next-step-tetx:hover{
+	opacity: 0.8;
+}
+.next-step-tetx span{
+	font-size: 14px;
+	color: #fff;
+	line-height: 38px;
+	font-weight: bolder;
+	
+}
+.NST-bg{
+	float: left;
+	margin-top: 8px;
+	margin-right: 5px;
+	margin-left: 10px;
+
+}
+.gest-you-like{
+	height: 38px;
+	font-size: 16px;
+	font-weight: bold;
+	color: #666;
+	line-height: 38px;
+	border-bottom: 1px solid #ddd;
+
+}
+.show-you{
+	height: 120px;
+	border-bottom: 1px solid #ddd;
+}
+.goods-totle-RMB{
+	font-size: 14px;
+}

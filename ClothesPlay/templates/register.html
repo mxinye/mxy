@@ -1,0 +1,280 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="{% static 'css/jquery.idcode.css' %}" type="text/css" rel="stylesheet" />
+		<style>
+			*{margin: 0px; padding: 0px;}
+			body,html{font-size: 12px; margin: 0px auto; background: #f9f9f9;}
+			body{width: 1263px; height: 811px;}
+			a{text-decoration: none;}
+			li{list-style-type: none;}
+			.g-hd{width: 1263px; height:96px; background: #F10582;}
+			.g-hd .g-grid{width: 990px; margin: 0 auto;height: 96px;}
+			
+			.g-mn{width: 990px; height: 664px; background: #fff; margin: 0px auto;}
+			.g-mn-left{width: 750px; height: 494px; padding: 30px 0px 120px 10px;float: left;}
+			.g-mn-right{width: 220px; height: 180px; padding-top: 127px; float:right ;margin-right: 10px;  text-align: center;}
+			.g-mn .m-flow{width: 750px; height: 120px;display: block;}
+			.g-mn .m-flow li{width:210px; height: 105px; float: left;}
+			.g-mn .m-flow li p{width: 210px; height: 45px;}
+			.g-mn .m-flow li span{width: 210px; line-height: 60px; text-align: center; color: #f10582; display: block; font-size: 14px;}
+			{#.g-mn .m-flow li .flow-first{background:url(img/imgs/surprise.png); background-position: 25px -8px;}#}
+            .g-mn .m-flow li .flow-first{background:url({% static 'img/imgs/surprise.png' %}); background-position: 25px -8px;}
+			{#.g-mn .m-flow li .flow-two{background:url(img/imgs/surprise.png); background-position: -192px -8px;}#}
+            .g-mn .m-flow li .flow-two{background:url({% static 'img/imgs/surprise.png' %}); background-position: -192px -8px;}
+			{#.g-mn .m-flow li .flow-three{background:url(img/imgs/surprise.png); background-position: -408px -8px;}#}
+			.g-mn .m-flow li .flow-three{background:url({% static 'img/imgs/surprise.png' %}); background-position: -408px -8px;}
+
+			
+			.g-mn .m-form{width: 750px; height: 364px; display: block;}
+			.g-mn .m-form li{margin-top:10px; padding: 7px 0px;}
+			.g-mn .m-form li .BT{width: 120px; line-height:21px; font-size: 14px; color: #666; display: inline-block; text-align: right;}
+			.g-mn .m-form li .text_form,.ispassword_form,.password_form{border: 1px solid #ccc; padding: 10px 5px; width: 260px ;border-radius: 3px;}
+			.g-mn .m-form li .Captcha_form{border: 1px solid #ccc; padding: 10px 5px; width: 112px ;border-radius: 3px;}
+			.g-mn .m-form li .TS{margin-left: 8px; line-height: 20px; font-size: 12px; color: #999;}
+			.g-mn .m-form li .BT label{color: #F10582;}
+			.g-mn .m-form li .password_style{padding-left: 235px; color: #ccc; padding-top: 2px;}
+			.g-mn .m-form li .password_style span{width: 32px;height: 14px; color: #FFFFFF;text-align: center;margin-right: -4px; background: #ccc;display: inline-block;}
+			.g-mn .m-form .XieYi{width: 625px; height: 20px; color: #666; padding: 7px 0px 7px 125px; margin-top: 10px;}
+			.g-mn .m-form .XieYi a{color: #3ab5e5;}
+			.g-mn .m-form .XieYi .pl{vertical-align: middle;}
+			.g-mn .m-form .XieYi .Register{width: 270px; height: 36px; background: #F10582; border: none; font-size: 16px; color: #fff; border-radius: 3px; cursor: pointer;}
+			
+			.g-mn-right h3{padding: 80px 20px 0px 20px; width: 180px; height: 21px; text-align:center; font-size:14px;color: #666666;}
+			.g-mn-right p{text-align: center; color: #F10582; font-size: 14px;}
+			.g-mn-right a{ display:inline-block; border-radius: 3px; padding: 10px 0px; width: 95px; background: #F10582; margin-top: 20px; color: #fff; text-align: center;}
+			
+			.g-ft{width: 1263px; height: 71px; background: -webkit-gradient(linear,right top,right bottom,from(#f0f0f0),to(#f9f9f9))}
+			.g-ft .g-ft-wrap{width: 1263px;height: 44px; padding-top: 15px; border-top: 1px solid #ffff; text-align: center;}
+			.g-ft .g-ft-wrap .g-ft-nav{width: 990px;height: 18px; margin: 0px auto; color: #666;}
+			.g-ft .g-ft-wrap .g-ft-nav .copyRight{line-height: 20px; margin-top: 6px;}
+			.g-ft .g-ft-wrap .g-ft-nav a{color: #666;}
+		</style>
+		<script  src="{% static 'js/jquery-1.12.3.js' %}"></script>
+		<script  src="{% static 'js/jquery.cookie.js' %}"></script>
+		<!--引用incode 插件-->
+		<script  src="{% static 'js/jquery.idcode.js' %}" ></script>
+{#		<script>#}
+{#			$(function(){#}
+{#				$.idcode.setCode(); //加载生成验证码方法#}
+{#	    		$(".Captcha_form").blur(function(){ #}
+{#	    			$(".Captcha_form").css("border-color","#ccc")#}
+{#	        		var IsBy = $.idcode.validateCode()  //调用返回值，返回值结果为true或者false#}
+{#	        		if(IsBy){#}
+{#	            		/*alert("验证码输入正确")*/#}
+{#	            		#}
+{#	            		console.log("验证码输入正确")#}
+{#	        		}else {#}
+{#	            		/*alert("请重新输入")*/	            		#}
+{#	            		$(".Captcha_form").css("border-color","red")#}
+{#	        		}#}
+{#	    		})#}
+{#	    		$(".text_form").blur(function(){#}
+{#	    			var user=$(".text_form").val();#}
+{#	    			var reg=/^[a-zA-Z0-9_\u4e00-\u9fa5]+$/#}
+{#					if(reg.test(user)&&6<=user.length&&user.length<=20){#}
+{#						$("#user").html("用户名正确！")#}
+{#						$("#user").css("color","#71b83d")#}
+{#					}#}
+{#	    			else{#}
+{#	    				$("#user").html("请输入6-20位非连续字符，支持中文数字及'_'组合。")#}
+{#						$("#user").css("color","red")#}
+{#						return;#}
+{#	    			}#}
+{#	    		})#}
+{#	    		$(".password_form").blur(function(){#}
+{#	    			var Password=$(".password_form").val();#}
+{#	    			var sValue=Password;#}
+{#	    			checkStrong(sValue);	    			#}
+{#	    			var reg=/^([a-z_A-Z-.+0-9]+)$/#}
+{#					if(reg.test(Password)&&6<=Password.length&&Password.length<=20){#}
+{#						$("#PassWord").html("密码正确！")#}
+{#						$("#PassWord").css("color","#71b83d")#}
+{#					}#}
+{#	    			else{#}
+{#	    				$("#PassWord").html("密码为6-20个字符，请用英文加数字或下划线组合！")#}
+{#						$("#PassWord").css("color","red")#}
+{#	    			}#}
+{#	    		})#}
+{#	    		$(".ispassword_form").blur(function(){#}
+{#	    			var isPassword=$(".ispassword_form").val();#}
+{#	    			console.log(isPassword);#}
+{#	    			#}
+{#	    			var Password=$(".password_form").val();#}
+{#	    			console.log(Password);#}
+{#					if(isPassword==Password&&isPassword.length>0){#}
+{#						$("#IsPassWord").html("密码正确！")#}
+{#						$("#IsPassWord").css("color","#71b83d")#}
+{#					}#}
+{#	    			else{#}
+{#	    				$("#IsPassWord").html("输入的密码不一致！")#}
+{#						$("#IsPassWord").css("color","red")#}
+{#	    			}#}
+{#	    		})#}
+{#	    		$(".Register").click(function(){#}
+{#	    			//注册(cookie存储)#}
+{#	    			var Text=/^[a-zA-Z0-9_\u4e00-\u9fa5]+$/;#}
+{#	    			var Pasd=/^([a-z_A-Z-.+0-9]+)$/;#}
+{#	    			var IsBy = $.idcode.validateCode();#}
+{#	    			if(!Text.test($(".text_form").val())||!Pasd.test($(".password_form").val())||($(".text_form").val().length>20||$(".text_form").val().length<6)||($(".password_form").val().length>20||$(".password_form").val().length<6)||$(".ispassword_form").val()!=$(".password_form").val()||!IsBy){#}
+{#	    				return;#}
+{#	    			}#}
+{#					var users = $.cookie("users") ? JSON.parse($.cookie("users")) : [];#}
+{#					//先判断是否存在该用户#}
+{#					for (var i=0; i<users.length; i++) {#}
+{#						if ( users[i].name == $(".text_form").val() ) {#}
+{#							$("#user").html("用户名已存在! 不能注册相同的用户");#}
+{#							$("#user").css("color","red")#}
+{#							return;#}
+{#						}#}
+{#						#}
+{#					}#}
+{#					var user = {#}
+{#						name: $(".text_form").val(),#}
+{#						pwd: $(".password_form").val()#}
+{#					}#}
+{#					users.push(user); 					#}
+{#					$.cookie("users", JSON.stringify(users), {expires:10, path:"/"});#}
+{#					console.log( $.cookie("users") );#}
+{#					alert("注册成功");#}
+{#					window.location.href='{% url 'clothes:register' %}'#}
+{#	    		})#}
+{#	    		function checkStrong(sValue) {#}
+{#					    var modes = 0;#}
+{#					    $(".password_style span").css("background","#ccc");#}
+{#					    console.log(sValue);#}
+{#					    //正则表达式验证符合要求的#}
+{#					    if (sValue.length < 6) return modes;#}
+{#					    if (/\d/.test(sValue)) modes++; //数字#}
+{#					    if (/[a-z]/.test(sValue)) modes++; //小写#}
+{#					    if (/[A-Z]/.test(sValue)) modes++; //大写  #}
+{#					    if (/\W/.test(sValue)) modes++; //特殊字符#}
+{#					    #}
+{#					   //逻辑处理#}
+{#					    switch (modes) {#}
+{#					        case 1:#}
+{#					        	$(".password_style span").eq(0).css("background","red");#}
+{#					            return 1;#}
+{#					            break;#}
+{#					        case 2:#}
+{#					        	$(".password_style span").eq(0).css("background","red");#}
+{#					        	$(".password_style span").eq(1).css("background","yellow");#}
+{#					            return 2;#}
+{#					            break;#}
+{#					        case 3:#}
+{#					        case 4:#}
+{#					        	$(".password_style span").eq(0).css("background","red");#}
+{#					        	$(".password_style span").eq(1).css("background","yellow");#}
+{#					        	$(".password_style span").eq(2).css("background","greenyellow");#}
+{#					            return sValue.length < 20 ? 3 : 4#}
+{#					            break;#}
+{#					    }#}
+{#					 #}
+{#				}#}
+{#			})			#}
+{#		</script>#}
+	</head>
+	<body>
+		<div class="g-hd">
+			<div class="g-grid">
+				<a href="{% url 'clothes:index' %}">
+					<img src="{% static 'img/imgs/reg-logo.png' %}" />
+				</a>
+			</div>
+		</div>
+		<div class="g-mn">
+			<div class="g-mn-left">
+				<ul class="m-flow">
+					<li>
+						<p class="flow-first"></p>
+						<span>填写账户信息</span>
+					</li>
+					<li>
+						<p class="flow-two"></p>
+						<span>验证账户</span>
+					</li>
+					<li>
+						<p class="flow-three"></p>
+						<span>注册成功</span>
+					</li>
+				</ul>
+                <form method="post">
+                    {% csrf_token %}
+                    <ul class="m-form">
+                    {% if err %}
+                        <li style="color: red;margin-left: 160px;font-size: 17px" >{{ err }}</li>
+                    {% endif %}
+					<li>
+						<span class="BT">
+							<label>*</label>
+							用户名:
+						</span>
+						<input value="" type="text" name="username" class="text_form" />
+						<span id="user" class="TS">由6-50位字符，支持中文、数字及“-”组合。</span>
+					</li>
+					<li>
+						<span class="BT">
+							<label>*</label>
+							登陆密码:
+						</span>
+						<input value="" type="password" name="password" class="password_form" />
+						<span id="PassWord" class="TS">密码为6-20个字符，请用英文加数字或下划线组合！</span>
+						<div class="password_style">
+							安全程度:
+							<span>弱</span>
+							<span>中</span>
+							<span>强</span>
+						</div>
+					</li>
+					<li>
+						<span class="BT">
+							<label>*</label>
+							确认密码:
+						</span>
+						<input value="" type="password" name="password1" class="ispassword_form" />
+						<span id="IsPassWord" class="TS">请再次输入密码。</span>
+					</li>
+					<li>
+						<span class="BT">
+							<label>*</label>
+							验证码:
+						</span>
+						<!--<input value="" type="text" name="username" class="Captcha_form" /><span id="idcode"></span>-->
+						<input type="text" id ="Txtidcode" class ="Captcha_form"><span id="idcode"></span>
+
+						<span class="TS">请输入验证码，区分大小写!</span>
+					</li>
+					<li class="XieYi">
+						<input type="checkbox" checked="checked"  class="pl"/>
+						 我已仔细阅读并同意接受
+						 <a href="">《用户使用协议》</a>
+					</li>
+					<li class="XieYi">
+						<input type="submit" class="Register" value="立即注册" />
+					</li>
+				</ul>
+{#                </form>#}
+
+			</div>
+			<div class="g-mn-right">
+				<h3>已有账号</h3>
+				<p>(可用试客联盟/众划算帐号登录)</p>
+				<a href="{% url 'clothes:land' %}">马上登录</a>
+			</div>
+		</div>
+		<div class="g-ft">
+			<div class="g-ft-wrap">
+				<div class="g-ft-nav">
+					<a href="" target="_blank">购物指南</a> |
+                	<a href="" target="_blank">招商合作</a> |
+                	<a href="" target="_blank">关于我们</a> |
+                	<a href="" target="_blank">版权声明</a>
+                	<p class="copyRight">copyright 2006-2015 yibanmall.com 版权所有 桂ICP备15008717号<img style="height: 20px; width: 20px;" src="{% static 'img/imgs/20160910141721.JPG' %}" /> <a target="_blank" href="" class="f-record">桂公网安备 45010702000034号</a></p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

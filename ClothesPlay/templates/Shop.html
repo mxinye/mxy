@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			@font-face {
+			  font-family: 'iconfont';
+			  src: url('iconfont.eot'); /* IE9*/
+			  src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+			  url('iconfont.woff') format('woff'), /* chrome、firefox */
+			  url('iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+			  url('iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+			}
+			.I-ico{
+			    font-family:"iconfont" !important;
+			    font-size:16px;font-style:normal;
+			    -webkit-font-smoothing: antialiased;
+			    -webkit-text-stroke-width: 0.2px;
+			    -moz-osx-font-smoothing: grayscale;		    
+			 }
+			*{margin: 0px; padding: 0px;}
+			body,html{font-size: 12px; margin: 0 auto;}
+			body{width: 1263px; height:auto;}
+			a{text-decoration: none;}
+			li{list-style-type: none;}
+			/*头部（g-hd）部分*/
+			#j_topbar{width: 1263px; height:30px;background: #F9F9F9;}
+			#j_topbar .g-top{width: 1190px; line-height: 30px; margin: 0px 36.5px;}
+			.g-topL{width: 191px; height: 30px; float: left;}
+			.indexs,.land,.register{color: #666}
+			.g-topR{width: 404px; height: 30px; float: right;}
+			.g-topR a{ color: #666;}
+			.g-topR i{font-style: normal; color: #ddd;}
+			.hd{width: 1263px; height: 138px; background: #fff;}
+			.top{width: 1190px; height: 60px; margin: 0px 36.5px; padding:20px 0px ;}
+			.top .logo{float: left;}
+			.top .top-sch{width: 350px; height: 60px; float: right;}
+			.top .top-sch .form-box{border: 2px solid #f10582;}
+			.top .top-sch .form-box .u-sch-text{width: 246px; height: 24px; padding: 5px 0px; margin-left: 20px; border: 0px;outline:none}
+			.top .top-sch .form-box .u-sch-btn{width: 74px;height: 34px; background:#f10582 ; color: white; border:0px ; float: right;}
+			.top .top-sch .sch-keywords{margin-top: 10px; width: 350px; height: 18px;}
+			.top .top-sch .sch-keywords span,a {color: #999;}
+			.hd .shop_m-nav{width: 1263px; height: 36px; background: #F10582;}
+			.hd .shop_m-nav .top_nav{width: 1190px; height: 36px; display: block; margin: 0 auto;}
+			.hd .shop_m-nav .top_nav li a{color: white; font-size:14px; font-weight:500;float: left; display: inline-block; width: 99px;line-height: 36px; text-align: center;}
+			.hd .shop_m-nav .top_nav li a:hover{background: #db0a76;}
+			
+			
+			/*中心(shop_con)部分*/
+			.shop_con{width: 1190px; height: 570px; margin: 20px auto; }
+			.shop_con .shop_show{width: 390px; height: 500px; margin: 0px 20px; padding-top:20px; float: left; position: relative;}
+			.shop_con .shop_show .small_shop{width: 390px; height: 80px; margin-top: 30px;}
+			.shop_con .shop_show .small_shop li{margin-right: 10px;display: inline-block; border:1px solid white;}
+			
+			
+			.shop_con .shop_news{width: 540px; height: 500px; margin-left: 20px; float: left;}
+			.shop_con .shop_news h2{width: 540px; line-height: 56px;font-size: 16px; color: #333;}
+			.shop_con .shop_news .price{width: 540px; height: 64px; padding: 5px 0px; background:#f7f7f7 ;}
+			.shop_con .shop_news .price .newprice{line-height: 36px; width: 150px; color: #7a7a7a;}
+			.shop_con .shop_news .price .newprice span{color: #eb2323; font-size: 24px; font-weight: 600;padding-left: 20px;}
+			.shop_con .shop_news .price .newprice label{width: 44px; height: 16px; display: inline-block; position: absolute; background: url(img/imgs/ico2.png);background-position:0 -105px; overflow: hidden;}
+			.shop_con .shop_news .price .oldprice{line-height: 28px; width: 150px;color: #7a7a7a;}
+			.shop_con .shop_news .price .oldprice del{font-size: 14px; padding-left: 20px;}
+			.shop_con .shop_news .address .dz{padding-left: 24px;}
+			.shop_con .shop_news .address{color: #666; padding-top: 14px;}
+			.shop_con .shop_news .courier{color: #666; padding-top: 14px; padding-bottom: 10px;border-bottom: 1px solid #e5e5e5;}
+			.shop_con .shop_news .shop_style{height: 120px; padding: 20px 0px; border-bottom: 1px solid #E5E5E5;}
+			.shop_con .shop_news .shop_style div{ height: 36px;line-height: 36px;color: #7a7a7a;}
+			.shop_con .shop_news .shop_style .shop_color span{border: 1px solid #c7c7c7; padding: 6px;margin-left: 24px;}
+			.shop_con .shop_news .shop_style .shop_size .first_size{border: 1px solid #c7c7c7; padding: 6px;margin-left: 24px;}
+			.shop_con .shop_news .shop_style .shop_size span{border: 1px solid #c7c7c7; padding: 6px; margin-right: 10px;}
+			.shop_con .shop_news .shop_style .shop_size span:hover{border-color: #F10582;}
+			 
+			.shop_con .shop_news .shop_style .shop_num .number{width: 38px; height: 22px; padding: 2px 5px; border: 1px solid #c7c7c7;outline:none;}
+			.shop_con .shop_news .shop_style .shop_num a{display: inline-block;height: 26px; width: 26px; border:1px solid #c7c7c7;text-align: center; line-height: 26px;}
+			.shop_con .shop_news .buy{width: 540px; height: 38px; padding: 20px 0px; border-bottom: 1px solid #e5e5e5;}
+			.shop_con .shop_news .buy a{display: inline-block;height: 36px; width: 160px; line-height: 36px;border: 1px solid #f11d52;margin-right: 28px; text-align: center;}
+			.shop_con .shop_news .buy .shopping{background: #ffe2e2;color: #f11d52; }
+			.shop_con .shop_news .buy .cart{background: #f11d52;color: #fff;}
+			
+			
+			/*放大镜  */
+			.shop_con .fdj{width: 430px; height: 300px;overflow: hidden; position: absolute; top: 207px; left: 457px; z-index: 10; display: none;background: #ccc; }
+			.shop_con .shop_show .magnifier{width: 215px; height: 150px; position: absolute; top: 20px;left:0; opacity: 0.3; background: red;}
+		</style>
+		<script src="js/jquery-1.12.3.js"></script>
+		<script src="js/shop.js"></script>
+	</head>
+	<body>
+		<div class="g-hd">
+			<!--头部公共部分-->
+            <div id="j_topbar" class="m-topbar f-cb">
+            	<div class="g-top">
+            		<div class="g-topL">
+	            		<a href="index.html" class="indexs">
+	            			<span class="I-ico" style="color: #f10582;">&#xe73d;</span> 衣扮网首页	
+	            		</a>
+	            		<a href="land.html" class="land">
+	            			[登录]
+	            		</a>
+	            		<a href="register.html" class="register">
+	            			[免费注册]
+	            		</a>
+            		</div>          	            		
+            		<div class="g-topR">
+            			<a href="#" target="_blank" style="color: #f10582;">下载app&nbsp;</a>
+            			<a href="#" target="_blank">我的订单</a> <i>|</i>
+            			<a href="SHOP_Cart.html" target="_blank"> 
+            				<span class="I-ico" style="color: #f10582;">&#xe95f;</span>购物车0件
+            			</a> <i>|</i>
+            			<a href="#" target="_blank">
+            				<span class="I-ico"style="color: gold;">&#xeaaa;</span>收藏夹
+            			</a> <i>|</i>
+            			<a href="#" target="_blank">互联支付</a> <i>|</i>
+            			<a href="#" target="_blank">帮助中心</a>
+            		</div>
+            	</div>
+            </div>           
+            <div class="hd">
+            	<!--搜索栏-->
+            	<div class="top">
+            		<div class="logo"><a href="index.html" target="_blank"><img src="img/imgs/logo.png"/></a></div>
+            		<div class="top-sch">
+            			<div class="form-box">
+            				<form style="position: relative;">
+            					<span class="I-ico" style="position: absolute; top: 10px; left: 5px;">&#xe679;</span>
+            					<input type="text" class="u-sch-text" placeholder="请输入您要搜的商品关键字！"/>
+            					<input type="submit" class="u-sch-btn" value="搜 索" />
+            				</form>
+            			</div>
+            			<div class="sch-keywords">
+            				<span >热门搜索：</span>
+            				<a href="#">连衣裙&nbsp;</a>
+            				<a href="#">T桖&nbsp;</a>
+            				<a href="#">POLO衫&nbsp;</a>
+            				<a href="#">短裙&nbsp;</a>
+            				<a href="#">半短裙&nbsp;</a>
+            			</div>
+            		</div>
+            	</div>
+            	<div class="shop_m-nav">
+            		<ul class="top_nav">
+            			<li><a href="index.html">首页</a></li>
+            			<li><a href="">女装特卖</a></li>
+            			<li><a href="">男装特卖</a></li>
+            			<li><a href="">童装特卖</a></li>
+            			<li><a href="">内衣特卖</a></li>
+            			<li><a href=""><span class="I-ico">&#xe6e0;</span> 限时特卖</a></li>
+            			<li><a href="">明星穿搭秘籍</a></li>
+            			<li><a href="">美衣盒子</a><img style="position: absolute; left: 800px; top: 120px;" src="img/imgs/hot.gif"/></li>
+            		</ul>
+            		
+            	</div>
+            </div>	
+        </div>
+        <div class="shop_con">
+        	<div class="shop_show">
+        		<div class="big_shop">
+        			<img style="width:390px; height: 390px;" src="img/imgs/201606161639114423.jpg" />
+        			<img style="display: none;"src="img/imgs/201606161639114805.jpg_390x390.jpg"/>
+        			<img style="display: none;" src="img/imgs/201606161639107494.jpg_390x390.jpg" />
+        			<div class="magnifier"></div>
+
+        		</div>
+       			<div class="small_shop">
+       				<li><img style="width: 68px; height: 68px;" src="img/imgs/201606161639114423.jpg" /></li>
+       				<li><img style="width: 68px; height: 68px;" src="img/imgs/201606161639114805.jpg" /></li>
+       				<li><img style="width: 68px; height: 68px;" src="img/imgs/201606161639107494.jpg" /></li>
+       			</div>	
+        	</div>
+        	<div class="fdj">
+        		<img  src="img/imgs/201606161639114423.jpg" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px;"/>
+        		<img  src="img/imgs/201606161639114805.jpg_390x390.jpg" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px; display: none;"/>
+        		<img  src="img/imgs/201606161639107494.jpg_390x390.jpg" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px; display: none;"/>
+        	</div>
+        	<div class="shop_news">
+        		<h2>2016夏韩国新款女装背心长裙沙滩裙性感露背无袖大摆雪纺连衣裙</h2>
+        		<div class="price">
+        			<div class="newprice">价格：<span>￥56.00</span><label></label></div>
+        			<div class="oldprice">原价：<del>￥224.00</del></div>
+        		</div>
+        		<div class="address">配送：<span class="dz">从广西 南宁 西乡塘区发货   </span><span>&nbsp;快递:0元</span></div>
+        		<div class="courier">默认快递： </div>
+        		<div class="shop_style">
+        			<div class="shop_color">颜色：<span>粉红色</span></div>       				        			
+        			<div class="shop_size">尺码：<span class="first_size">L</span><span>M</span><span>S</span></div>
+        			<div class="shop_num">购买数量：<a href="#">-</a><input type="text" maxlength="5" class="number" name="" value="1" style="border-color: rgb(194, 194, 194);"><a href="#">+</a>  &nbsp;件(库存5991件)</div>       			
+        		</div>
+        		<div class="buy">
+        			<a class="shopping" href="#">立即购买</a><a class="cart" href="#"><span class="I-ico" style="color: #fff;">&#xe73b;</span> 加入购物车</a>
+        		</div>
+        	</div>
+        </div>
+	</body>
+</html>

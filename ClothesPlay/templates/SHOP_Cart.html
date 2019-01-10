@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="css/shoppingCart.css" type="text/css" rel="stylesheet" />
+		<style>
+			@font-face {
+			  font-family: 'iconfont';
+			  src: url('iconfont.eot'); /* IE9*/
+			  src: url('iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+			  url('iconfont.woff') format('woff'), /* chrome、firefox */
+			  url('iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+			  url('iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+			}
+			.I-ico{
+			    font-family:"iconfont" !important;
+			    font-size:16px;font-style:normal;
+			    -webkit-font-smoothing: antialiased;
+			    -webkit-text-stroke-width: 0.2px;
+			    -moz-osx-font-smoothing: grayscale;		    
+			 }
+			*{margin: 0px; padding: 0px;}
+			body,html{font-size: 12px; margin: 0 auto;}
+			body{width: 1263px; height:auto;}
+			a{text-decoration: none;}
+			li{list-style-type: none;}
+			/*头部（g-hd）部分*/
+			#j_topbar{width: 1263px; height:30px;background: #F9F9F9;}
+			#j_topbar .g-top{width: 1190px; line-height: 30px; margin: 0px 36.5px;}
+			.g-topL{width: 191px; height: 30px; float: left;}
+			.indexs,.land,.register{color: #666}
+			.g-topR{width: 404px; height: 30px; float: right;}
+			.g-topR a{ color: #666;}
+			.g-topR i{font-style: normal; color: #ddd;}
+			.hd{width: 1263px; height: 138px; background: #fff;}
+			.top{width: 1190px; height: 60px; margin: 0px 36.5px; padding:20px 0px ;}
+			.top .logo{float: left;}
+			.top .top-sch{width: 350px; height: 60px; float: right;}
+			.top .top-sch .form-box{border: 2px solid #f10582;}
+			.top .top-sch .form-box .u-sch-text{width: 246px; height: 24px; padding: 5px 0px; margin-left: 20px; border: 0px;outline:none}
+			.top .top-sch .form-box .u-sch-btn{width: 74px;height: 34px; background:#f10582 ; color: white; border:0px ; float: right;}
+			.top .top-sch .sch-keywords{margin-top: 10px; width: 350px; height: 18px;}
+			.top .top-sch .sch-keywords span,a {color: #999;}
+			.hd .shop_m-nav{width: 1263px; height: 36px; background: #EB2323;}
+			.hd .shop_m-nav .top_nav{width: 1190px; height: 36px; display: block; margin: 0 auto;}
+			.hd .shop_m-nav .top_nav li a{color: white; font-size:14px; font-weight:500;float: left; display: inline-block; width: 99px;line-height: 36px; text-align: center;}
+			.hd .shop_m-nav .top_nav li a:hover{background: #db0a76;}
+		</style>
+		<script src="js/jquery-1.12.3.js"></script>
+		<script src="js/jquery.cookie.js"></script>
+		<script src="js/shops_cart.js"></script>
+	</head>
+	<body>
+		<div class="g-hd">
+			<!--头部公共部分-->
+            <div id="j_topbar" class="m-topbar f-cb">
+            	<div class="g-top">
+            		<div class="g-topL">
+	            		<a href="index.html" class="indexs">
+	            			<span class="I-ico" style="color: #f10582;">&#xe73d;</span> 衣扮网首页	
+	            		</a>
+	            		<a href="land.html" class="land">
+	            			[登录]
+	            		</a>
+	            		<a href="register.html" class="register">
+	            			[免费注册]
+	            		</a>
+            		</div>          	            		
+            		<div class="g-topR">
+            			<a href="#" target="_blank" style="color: #f10582;">下载app&nbsp;</a>
+            			<a href="#" target="_blank">我的订单</a> <i>|</i>
+            			<a href="#" target="_blank"> 
+            				<span class="I-ico" style="color: #f10582;">&#xe95f;</span>购物车0件
+            			</a> <i>|</i>
+            			<a href="#" target="_blank">
+            				<span class="I-ico"style="color: gold;">&#xeaaa;</span>收藏夹
+            			</a> <i>|</i>
+            			<a href="#" target="_blank">互联支付</a> <i>|</i>
+            			<a href="#" target="_blank">帮助中心</a>
+            		</div>
+            	</div>
+            </div>           
+            <div class="hd">
+            	<!--搜索栏-->
+            	<div class="top">
+            		<div class="logo"><a href="index.html" target="_blank"><img src="img/imgs/logo.png"/></a></div>
+            		<div class="top-sch">
+            			<div class="form-box">
+            				<form style="position: relative;">
+            					<span class="I-ico" style="position: absolute; top: 10px; left: 5px;">&#xe679;</span>
+            					<input type="text" class="u-sch-text" placeholder="请输入您要搜的商品关键字！"/>
+            					<input type="submit" class="u-sch-btn" value="搜 索" />
+            				</form>
+            			</div>
+            			<div class="sch-keywords">
+            				<span >热门搜索：</span>
+            				<a href="#">连衣裙&nbsp;</a>
+            				<a href="#">T桖&nbsp;</a>
+            				<a href="#">POLO衫&nbsp;</a>
+            				<a href="#">短裙&nbsp;</a>
+            				<a href="#">半短裙&nbsp;</a>
+            			</div>
+            		</div>
+            	</div>
+            	<div class="shop_m-nav">
+            		<ul class="top_nav">
+            			<li><a href="index.html">首页</a></li>
+            			<li><a href="">女装特卖</a></li>
+            			<li><a href="">男装特卖</a></li>
+            			<li><a href="">童装特卖</a></li>
+            			<li><a href="">内衣特卖</a></li>
+            			<li><a href=""><span class="I-ico">&#xe6e0;</span> 限时特卖</a></li>
+            			<li><a href="">明星穿搭秘籍</a></li>
+            			<li><a href="">美衣盒子</a><img style="position: absolute; left: 800px; top: 120px;" src="img/imgs/hot.gif"/></li>
+            		</ul>           		
+            	</div>
+            </div>	
+        </div>
+        <div id="my-shopping-cart">
+			<div class="cart-text">
+				<h1>我的购物车</h1>
+				<p>查看购物车商品清单，增加减少商品数量，并勾选想要的商品进入下一步操作。</p>
+			</div>
+			<div id="shopCar" class="shoppping-cart-content">
+				<table>
+					<thead>
+						<tr class="shoppping-cart-content-head">
+							<td class="w80">序号(商品ID)</td>
+							<td class="w560">商品</td>
+							<td class="w80">单价(元)</td>
+							<td class="w120">数量</td>
+							<td class="w80">小计(元)</td>
+							<td class="w80">操作</td>
+						</tr>
+					</thead>
+					<tbody>
+						<th class="shoppping-cart-content-title" colspan="6">
+							<div class="store-title">序号:</div>
+							<div class="store-activity"><a href="">店铺活动，满29免运费</a></div>
+						</th>
+	
+	
+	
+	
+					</tbody>
+					<tfoot>
+						<th class="tstore-totle-money" colspan="6">
+							<div class="TTM-text">商品合计:</div>
+							<div class="TTM-all-money"><span></span>元</div>
+						</th>
+					</tfoot> 
+	
+				</table>
+					
+				<div class="totle-money-text">商品总价(不含运费) <span id="totalPrice"></span>元</div>
+				<div class="next-step">
+					<div class="next-step-tetx">
+						<a href="orderPage/orderPage.html">
+							<div class="NST-bg"><img src="img/imgs/next.jpg"/></div>
+							<span>下一步，填写核对购物信息</span>
+						</a>
+					</div>
+	
+				</div>
+				<div class="gest-you-like">猜您喜欢的宝贝</div>
+				<div class="show-you"></div>								
+			</div>
+	</div>
+
+	</body>
+</html>
