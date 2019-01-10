@@ -175,22 +175,42 @@
 			.g-ft .ft .ft-nav dl .yl a{display: inline-block; width: 45%; line-height: 26px;}
 			.g-ft .m-ft .copyRight{color: white; text-align: center;}
 			.g-ft .m-ft .copyRight a{color: white;}
-			
+			.wp{border-right: 2px #3ab5e5 solid}
+
+            .wu{
+                display: none;
+            }
+            .logolb{
+                display: inline-block;
+
+            }
+
 			
 		</style>
 		
         <script src="{% static 'js/jquery-1.12.3.js' %}"></script>
 		<script src="{% static 'js/jquery.cookie.js' %}"></script>
 		<script src="{% static 'js/index.js' %}"></script>
-		<script src="{% static 'js/shops.js' %}"></script>
-		<script src="{% static 'js/warpY.js' %}"></script>
+{#		<script src="{% static 'js/shops.js' %}"></script>#}
+{#		<script src="{% static 'js/warpY.js' %}"></script>#}
 		
 		
-		<script src="{% static 'js/LBTX1.js' %}"></script>
-		<script src="{% static 'js/LBTX2.js' %}"></script>
-		<script src="{% static 'js/LBTX3.js' %}"></script>
-		<script src="{% static 'js/LBTY.js' %}"></script>
+{#		<script src="{% static 'js/LBTX1.js' %}"></script>#}
+{#		<script src="{% static 'js/LBTX2.js' %}"></script>#}
+{#		<script src="{% static 'js/LBTX3.js' %}"></script>#}
+{#		<script src="{% static 'js/LBTY.js' %}"></script>#}
 {#		<script src="{% static 'js/ming.js' %}"></script>#}
+        <script>
+            $(function () {
+                $('.wrapy-photo>div').click(function () {
+                    $('.wrapy-photo>div').attr('class','')
+                    $(this).attr('class','wp')
+                    var indexd = $(this).index()
+                    $('.LBY>div').attr('class','wu')
+                    $('.LBY>div').eq(indexd).attr('class','logolb')
+                })
+            })
+        </script>
 	</head>
 	<body>
 		<div class="g-hd">
@@ -235,7 +255,7 @@
             <div class="hd">
             	<!--搜索栏-->
             	<div class="top">
-            		<div class="logo"><a href="index.html" target="_blank"><img src="{% static 'img/imgs/logo.png'%}"></a></div>
+            		<div class="logo"><a href="{% url 'clothes:index' %}" target="_blank"><img src="{% static 'img/imgs/logo.png'%}"></a></div>
             		<div class="top-sch">
             			<div class="form-box">
             				<form style="position: relative;">
@@ -493,62 +513,24 @@
         	<div class="m-mn">
         		<ul>
 {#                    shoping.json，有类似数据#}
+
+{#                    <li>#}
+{#                        <a href= "#"><img src="{% static 'img/imgs/201606251751427984.jpg' %}"/></a>#}
+{#        				<a href="#">ROOM0404 2016夏季韩版新款连衣裙</a>#}
+{#        				<span>￥181.00</span>#}
+{#        				<del>￥258.00</del>#}
+{#        				<i>7.0折</i>#}
+{#                    </li>#}
+                {% for good in goods %}
                     <li>
-                        <a href= "#"><img src="{% static 'img/imgs/201606251751427984.jpg' %}"/></a>
-        				<a href="#">ROOM0404 2016夏季韩版新款连衣裙</a>
-        				<span>￥181.00</span>
-        				<del>￥258.00</del>
-        				<i>7.0折</i>
+                        <a href= "{% url 'clothes:gooddetail' good.id %}" class="imgdir"><img src="{% static good.imgdir %}"/></a>
+                        <a href="{% url 'clothes:gooddetail' good.id %}">{{ good.name }}</a><br>
+                        <span>￥{{ good.price }}</span>
+                        <del>￥{{ good.old_price }}</del>
+                        <i>{{ good.discount }}折</i>
                     </li>
-                    <li>
-                        <a href= "#"><img src="{% static 'img/imgs/201606251751427984.jpg' %}"/></a>
-        				<a href="#">ROOM0404 2016夏季韩版新款连衣裙</a>
-        				<span>￥181.00</span>
-        				<del>￥258.00</del>
-        				<i>7.0折</i>
-                    </li>
-                    <li>
-                        <a href= "#"><img src="{% static 'img/imgs/201606251751427984.jpg' %}"/></a>
-        				<a href="#">ROOM0404 2016夏季韩版新款连衣裙</a>
-        				<span>￥181.00</span>
-        				<del>￥258.00</del>
-        				<i>7.0折</i>
-                    </li>
-                    <li>
-                        <a href= "#"><img src="{% static 'img/imgs/201606251751427984.jpg' %}"/></a>
-        				<a href="#">ROOM0404 2016夏季韩版新款连衣裙</a>
-        				<span>￥181.00</span>
-        				<del>￥258.00</del>
-        				<i>7.0折</i>
-                    </li>
-                    <li>
-                        <a href= "#"><img src="{% static 'img/imgs/201606251751427984.jpg' %}"/></a>
-        				<a href="#">ROOM0404 2016夏季韩版新款连衣裙</a>
-        				<span>￥181.00</span>
-        				<del>￥258.00</del>
-        				<i>7.0折</i>
-                    </li>
-                    <li>
-                        <a href= "#"><img src="{% static 'img/imgs/201606251751427984.jpg' %}"/></a>
-        				<a href="#">ROOM0404 2016夏季韩版新款连衣裙</a>
-        				<span>￥181.00</span>
-        				<del>￥258.00</del>
-        				<i>7.0折</i>
-                    </li>
-                    <li>
-                        <a href= "#"><img src="{% static 'img/imgs/201606251751427984.jpg' %}"/></a>
-        				<a href="#">ROOM0404 2016夏季韩版新款连衣裙</a>
-        				<span>￥181.00</span>
-        				<del>￥258.00</del>
-        				<i>7.0折</i>
-                    </li>
-                    <li>
-                        <a href= "#"><img src="{% static 'img/imgs/201606251751427984.jpg' %}"/></a>
-        				<a href="#">ROOM0404 2016夏季韩版新款连衣裙</a>
-        				<span>￥181.00</span>
-        				<del>￥258.00</del>
-        				<i>7.0折</i>
-                    </li>
+                {% endfor %}
+
 
 
 
@@ -565,24 +547,29 @@
 	        </div>
 	        <div class="m-content-wrapy">
 	        	<div class="wrapy-nav">
-	        		<a href="#" class="UP">
+	        		<a href="" class="UP">
 	        			<span class="I-ico" style="font-size: 30px;"></span>
 	        		</a>
 	        		<div class="wrapy-photo">
-                        <div><img src="{% static 'img/imgs/l_cs.jpg' %}" alt=""></div>
+                        <div class="wp"><img src="{% static 'img/imgs/l_cs.jpg' %}" alt=""></div>
                         <div><img src="{% static 'img/imgs/l_dzlsj.jpg' %}" alt=""></div>
                         <div><img src="{% static 'img/imgs/l_eal.jpg' %}" alt=""></div>
                         <div><img src="{% static 'img/imgs/l_llke.jpg' %}" alt=""></div>
                         <div><img src="{% static 'img/imgs/l_md.jpg' %}" alt=""></div>
                         <div><img src="{% static 'img/imgs/l_mq.jpg' %}" alt=""></div>
 	        		</div>
-	        		<a href="#" class="UP" style="position: absolute;bottom: 0px; border-bottom: 0px;">
+	        		<a href="" class="UP" style="position: absolute;bottom: 0px; border-bottom: 0px;">
 	        			<span class="I-ico" style="font-size: 30px;"></span>
 	        		</a>
 	        	</div>
 	        	<div class="wrapy">
 	        		<div class="LBY">
-
+                        <div class="logolb"><img src="{% static 'img/imgs/201606251751427984.jpg' %}" alt="" style="height: 530px;width: 500px"></div>
+                        <div class="wu"><img src="{% static 'img/imgs/linke_14682007362310.jpg' %}" alt="" style="height: 530px;width: 500px"></div>
+                        <div class="wu"><img src="{% static 'img/imgs/201607071144073964.jpg' %}" alt="" style="height: 530px;width: 500px"></div>
+                        <div class="wu"><img src="{% static 'img/imgs/201607071150074658.jpg' %}" alt="" style="height: 530px;width: 500px"></div>
+                        <div class="wu"><img src="{% static 'img/imgs/201607071340124768.jpg' %}" alt="" style="height: 530px;width: 500px"></div>
+                        <div class="wu"><img src="{% static 'img/imgs/linke_14682010808967.jpg' %}" alt="" style="height: 530px;width: 500px"></div>
 	        		</div>
 	        	</div>
 	        </div>

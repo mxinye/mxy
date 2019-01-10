@@ -6,7 +6,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from clothes.models import User
+from clothes.models import User, Good
+
 
 # 使用md5加密算法【密码】
 def get_md5_pwd(pwd):
@@ -30,7 +31,11 @@ def index(request):
         username = user.username
     else:
         username = None
-    return render(request,'index.html',context={'username':username})
+
+    # 获取商品信息
+    goods = Good.objects.all()[0:8]
+
+    return render(request,'index.html',context={'username':username,'goods':goods})
 
 # 登录
 def land(request):
@@ -85,15 +90,7 @@ def logout(request):
 
     return response
 
-
-
-
-
-
-
-
-
-
-
-
-
+# 商品详情
+def gooddetail(request,goodid):
+    good = Good.objects.get(pk=goodid)
+    return render(request,'Shop.html',context={'good':good})
