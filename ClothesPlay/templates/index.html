@@ -7,11 +7,11 @@
 		<style>
 		@font-face {
 		  font-family: 'iconfont';
-		  src: url({% static 'logo/iconfont.eot' %}); /* IE9*/
-		  src: url({% static 'logo/iconfont.eot?#iefix' %}) format('embedded-opentype'), /* IE6-IE8 */
-		  url({% static 'logo/iconfont.woff' %}) format('woff'), /* chrome、firefox */
-		  url({% static 'logo/iconfont.ttf' %}) format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-		  url({% static 'logo/iconfont.svg#iconfont' %}) format('svg'); /* iOS 4.1- */
+		  src: url({% static 'font/iconfont.eot' %}); /* IE9*/
+		  src: url({% static 'font/iconfont.eot?#iefix' %}) format('embedded-opentype'), /* IE6-IE8 */
+		  url({% static 'font/iconfont.woff' %}) format('woff'), /* chrome、firefox */
+		  url({% static 'font/iconfont.ttf' %}) format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+		  url({% static 'font/iconfont.svg#iconfont' %}) format('svg'); /* iOS 4.1- */
 		}
 		.I-ico{
 		    font-family:"iconfont" !important;
@@ -136,9 +136,9 @@
     		.DIVS{position:absolute ;left: 0px; width: 4760px; height: 614px;}
     		.lbt_div_style1{width: 240px;height: 286px; padding: 10px; border-right: 1px solid #EBEBEB; border-bottom: 1px solid #EBEBEB;}
     		
-    		.m-content-con1 .m-content-wrapx1 .m-content-women img{width: 240px; height: 240px;}
-    		.m-content-con1 .m-content-wrapx1 .m-content-man img{width: 240px; height: 240px;}
-    		.m-content-con1 .m-content-wrapx1 .m-content-child img{width: 240px; height: 240px;}
+    		.m-content-con1 .m-content-wrapx1 .m-content-women img{width: 1190px; }
+    		.m-content-con1 .m-content-wrapx1 .m-content-man img{width: 1190px;}
+    		.m-content-con1 .m-content-wrapx1 .m-content-child img{width: 1190px;}
     		
     		.m-content-con1 .m-content-wrapx1 .m-content-man{width: 1190px; height: 614px; background: white;position: relative;overflow: hidden;}
     		.m-content-con1 .m-content-wrapx1 .m-content-tab1 ul .z-crt1{background:#f96495;color: white;} 
@@ -177,15 +177,12 @@
 			.g-ft .m-ft .copyRight a{color: white;}
             {##}
             .wp{border-right: 2px #3ab5e5 solid}
-
-            .wu{
-                display: none;
-            }
-            .logolb{
-                display: inline-block;
-
-            }
-            .z
+            .wu{ display: none;}
+            .logolb{display: inline-block;}
+            .m-content-women .DIVS .DIV{display: none;}
+            .m-content-man .DIVS .DIV{display: none;}
+            .m-content-child .DIVS .DIV{display: none;}
+            #DIVchange{display: inline-block;}
 
 			
 		</style>
@@ -202,38 +199,10 @@
 {#		<script src="{% static 'js/LBTX3.js' %}"></script>#}
 {#		<script src="{% static 'js/LBTY.js' %}"></script>#}
 {#		<script src="{% static 'js/ming.js' %}"></script>#}
-        <script>
-            $(function () {
-                var indexd=0;
-                $('.wrapy-photo>div').click(function () {
-                    $('.wrapy-photo>div').attr('class','');
-                    $(this).attr('class','wp');
-                    indexd = $(this).index();
-                    $('.LBY>div').attr('class','wu');
-                    $('.LBY>div').eq(indexd).attr('class','logolb')
-                });
-                $('#redindex').click(function () {
-                    if (indexd!=0){
-                        indexd = indexd-1;
-                        $('.wrapy-photo>div').attr('class','');
-                        $('.wrapy-photo>div').eq(indexd).attr('class','wp');
-                        $('.LBY>div').attr('class','wu');
-                        $('.LBY>div').eq(indexd).attr('class','logolb')
-                    }
-                });
-                $('#addindex').click(function () {
-                    if (indexd!=5){
-                        indexd = indexd+1;
-                        $('.wrapy-photo>div').attr('class','');
-                        $('.wrapy-photo>div').eq(indexd).attr('class','wp');
-                        $('.LBY>div').attr('class','wu');
-                        $('.LBY>div').eq(indexd).attr('class','logolb')
-                    }
-                })
+		<script src="{% static 'js/wheel1.js' %}"></script>
+		<script src="{% static 'js/wheel2.js' %}"></script>
+		<script src="{% static 'js/wheel3.js' %}"></script>
 
-
-            });
-        </script>
 	</head>
 	<body>
 		<div class="g-hd">
@@ -614,10 +583,18 @@
         			<span class="prev1">&lt;</span>
         			<span class="next1">&gt;</span>
         			<div class="DIVS">
-	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603030928528794.jpg' %}" alt=""></a></div>
-	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603030924526770.jpg' %}" alt=""></a></div>
-	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603081354339001.jpg' %}" alt=""></a></div>
-	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603111926478825.jpg' %}" alt=""></a></div>
+{#	        			<div class="DIV" id="DIVchange"><a href=""><img src="{% static 'img/imgs/201603030928528794.jpg' %}" alt=""></a></div>#}
+{#	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603030924526770.jpg' %}" alt=""></a></div>#}
+{#	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603081354339001.jpg' %}" alt=""></a></div>#}
+{#	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603111926478825.jpg' %}" alt=""></a></div>#}
+                        {% for wheel1 in wheel1s %}
+                            {% if forloop.first %}
+      	        			    <div class="DIV" id="DIVchange"><a href="{% url 'clothes:gooddetail1' wheel1.id %}"><img src="{% static wheel1.imgdir %}" alt=""></a></div>
+                            {% else %}
+                                <div class="DIV"><a href="{% url 'clothes:gooddetail1' wheel1.id %}"><img src="{% static wheel1.imgdir %}" alt=""></a></div>
+                            {% endif %}
+                        {% endfor %}
+
         			</div>
         		</div>
         	</div>
@@ -637,10 +614,13 @@
         			<span class="prev2">&lt;</span>
         			<span class="next2">&gt;</span>
         			<div class="DIVS">
-	        			<div class="DIV"></div>
-	        			<div class="DIV"></div>
-	        			<div class="DIV"></div>
-	        			<div class="DIV"></div>
+	        			{% for wheel1 in wheel1s %}
+                            {% if forloop.first %}
+      	        			    <div class="DIV" id="DIVchange"><a href="{% url 'clothes:gooddetail1' wheel1.id %}"><img src="{% static wheel1.imgdir %}" alt=""></a></div>
+                            {% else %}
+                                <div class="DIV"><a href="{% url 'clothes:gooddetail1' wheel1.id %}"><img src="{% static wheel1.imgdir %}" alt=""></a></div>
+                            {% endif %}
+                        {% endfor %}
         			</div>
         		</div>
         	</div>
@@ -660,10 +640,13 @@
         			<span class="prev3">&lt;</span>
         			<span class="next3">&gt;</span>
         			<div class="DIVS">
-	        			<div class="DIV"></div>
-	        			<div class="DIV"></div>
-	        			<div class="DIV"></div>
-	        			<div class="DIV"></div>
+	        			{% for wheel1 in wheel1s %}
+                            {% if forloop.first %}
+      	        			    <div class="DIV" id="DIVchange"><a href="{% url 'clothes:gooddetail1' wheel1.id %}"><img src="{% static wheel1.imgdir %}" alt=""></a></div>
+                            {% else %}
+                                <div class="DIV"><a href="{% url 'clothes:gooddetail1' wheel1.id %}"><img src="{% static wheel1.imgdir %}" alt=""></a></div>
+                            {% endif %}
+                        {% endfor %}
         			</div>
         		</div>
         	</div>

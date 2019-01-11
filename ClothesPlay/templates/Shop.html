@@ -7,11 +7,11 @@
 		<style>
 			@font-face {
 			  font-family: 'iconfont';
-			  src: url({% static 'logo/iconfont.eot' %}); /* IE9*/
-			  src: url({% static 'logo/iconfont.eot?#iefix' %}) format('embedded-opentype'), /* IE6-IE8 */
-			  url({% static 'logo/iconfont.woff' %}) format('woff'), /* chrome、firefox */
-			  url({% static 'logo/iconfont.ttf' %}) format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-			  url({% static 'logo/iconfont.svg#iconfont' %}) format('svg'); /* iOS 4.1- */
+			  src: url({% static 'font/iconfont.eot' %}); /* IE9*/
+			  src: url({% static 'font/iconfont.eot?#iefix' %}) format('embedded-opentype'), /* IE6-IE8 */
+			  url({% static 'font/iconfont.woff' %}) format('woff'), /* chrome、firefox */
+			  url({% static 'font/iconfont.ttf' %}) format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+			  url({% static 'font/iconfont.svg#iconfont' %}) format('svg'); /* iOS 4.1- */
 			}
 			.I-ico{
 			    font-family:"iconfont" !important;
@@ -102,7 +102,22 @@
                     var value = parseInt($('.number').val());
                     $('.number').attr('value',(value+1).toString());
 
+                });
+                $('.cart').click(function () {
+                    var goodnum = $('.number').val();
+                    $.ajax({
+                    'url':'{% url 'clothes:addgoodcard' good.id %}',
+                    'type':'get',
+                    'data':{
+                        'goodnum':goodnum,
+                    },
+                    'dataType':'json',
+                    success:(function (data) {
+                    alert('添加成功')
+                    })
                 })
+                })
+
             })
         </script>
 	</head>
@@ -189,12 +204,12 @@
        			</div>	
         	</div>
         	<div class="fdj">
-        		<img  src="{% static 'img/imgs/201606161639114423.jpg' %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px;"/>
-        		<img  src="{% static 'img/imgs/201606161639114805.jpg_390x390.jpg' %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px; display: none;"/>
-        		<img  src="{% static 'img/imgs/201606161639107494.jpg_390x390.jpg' %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px; display: none;"/>
+        		<img  src="{% static good.imgdir %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px;"/>
+        		<img  src="{% static good.imgdir %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px; display: none;"/>
+        		<img  src="{% static good.imgdir %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px; display: none;"/>
         	</div>
         	<div class="shop_news">
-        		<h2>2016夏韩国新款女装背心长裙沙滩裙性感露背无袖大摆雪纺连衣裙</h2>
+        		<h2>{{ good.name }}</h2>
         		<div class="price">
         			<div class="newprice">价格：<span>￥{{ good.price }}</span><label></label></div>
         			<div class="oldprice">原价：<del>￥{{ good.old_price }}</del></div>
@@ -204,10 +219,10 @@
         		<div class="shop_style">
         			<div class="shop_color">颜色：<span>粉红色</span></div>       				        			
         			<div class="shop_size">尺码：<span class="first_size">L</span><span>M</span><span>S</span></div>
-        			<div class="shop_num">购买数量：<a href="#" class="redval">-</a><input type="text" maxlength="5" class="number" name="" value="1" style="border-color: rgb(194, 194, 194);"><a href="#" class="addval">+</a>  &nbsp;件(库存5991件)</div>
+        			<div class="shop_num">购买数量：<a  class="redval">-</a><input type="text" maxlength="5" class="number" name="num" value="1" style="border-color: rgb(194, 194, 194);"><a  class="addval">+</a>  &nbsp;件(库存5991件)</div>
         		</div>
         		<div class="buy">
-        			<a class="shopping" href="#">立即购买</a><a class="cart" href="#"><span class="I-ico" style="color: #fff;">&#xe73b;</span> 加入购物车</a>
+        			<a class="shopping" href="">立即购买</a><a class="cart" ><span class="I-ico" style="color: #fff;">&#xe73b;</span> 加入购物车</a>
         		</div>
         	</div>
         </div>

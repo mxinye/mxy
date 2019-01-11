@@ -2,11 +2,11 @@ import hashlib
 import random
 
 import time
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from clothes.models import User, Good
+from clothes.models import User, Good, Wheel1, Cart
 
 
 # 使用md5加密算法【密码】
@@ -22,6 +22,17 @@ def get_md5_token():
     md5.update(token.encode('utf-8'))
     return md5.hexdigest()
 
+
+def outer(page):
+    def inner(request,*args,**kwargs):
+        if request.session.get('token'):
+            page(request,*args,**kwargs)
+        else:
+            return redirect('clothes:land')
+
+    return inner
+
+
 # 首页
 def index(request):
     token = request.session.get('token')
@@ -33,9 +44,16 @@ def index(request):
         username = None
 
     # 获取商品信息
-    goods = Good.objects.all()[0:8]
+    goods = Good.objects.all()
+    wheel1s = Wheel1.objects.all()
 
-    return render(request,'index.html',context={'username':username,'goods':goods})
+    data = {
+        'username': username,
+        'goods': goods,
+        'wheel1s':wheel1s,
+    }
+
+    return render(request,'index.html',context=data)
 
 # 登录
 def land(request):
@@ -91,6 +109,36 @@ def logout(request):
     return response
 
 # 商品详情
+@outer
 def gooddetail(request,goodid):
     good = Good.objects.get(pk=goodid)
     return render(request,'Shop.html',context={'good':good})
+@outer
+def gooddetail1(request,wheelid):
+    wheel = Wheel1.objects.get(pk=wheelid)
+    return render(request,'Shop.html',context={'good':wheel})
+
+@outer
+def addgoodcard(request,goodid):
+    token = request.GET.get('token')
+    user_id = User.objects.get(token=token).id
+
+    num = request.GET.get('goodnum')
+    good = Good.objects.get(pk=goodid)
+
+    cart = Cart()
+    cart.user_id = user_id
+    cart.goodname = good.name
+    cart.goodnum = num
+    cart.good_id = goodid
+    cart.save()
+    return JsonResponse({'a':0})
+
+@outer
+def card(request):
+    token = request.GET.get('token')
+    user = User.objects.get(token=token)
+
+    goods = Cart.objects.filter(user_id=user.id)
+
+    return render(request,'SHOP_Cart.html',context={'goods':goods})
