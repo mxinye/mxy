@@ -112,7 +112,7 @@
     		.m-content-con1 .m-content-wrapx1 .m-content-tab1 {border-bottom: 2px solid #ff8c2f;display: block;}
     		.m-content-con1 .m-content-wrapx1 .m-content-tab1 ul{display: inline-block;height: 40px;}
     		.m-content-con1 .m-content-wrapx1 .m-content-tab1 ul li{float: left; display: block; line-height: 40px; padding: 0px 25px; cursor: pointer; font-family: "微软雅黑";color: #666; font-size: 14px;}
-    		.m-content-con1 .m-content-wrapx1 .m-content-tab1 ul .z-crt{background: rgb(255, 140, 47);color: white;} 
+    		.m-content-con1 .m-content-wrapx1 .m-content-tab1 ul .z-crt{background: rgb(255, 140, 47);color: white;}
     		.m-content-con1 .m-content-wrapx1 .m-content-tab1 a{float: right; margin-top: 12px; font-size: 12px; color: #666;}
     		.m-content-con1 .m-content-wrapx1 .m-content-women{width: 1190px; height: 614px; background: white; position: relative; overflow: hidden;}
     		
@@ -175,7 +175,8 @@
 			.g-ft .ft .ft-nav dl .yl a{display: inline-block; width: 45%; line-height: 26px;}
 			.g-ft .m-ft .copyRight{color: white; text-align: center;}
 			.g-ft .m-ft .copyRight a{color: white;}
-			.wp{border-right: 2px #3ab5e5 solid}
+            {##}
+            .wp{border-right: 2px #3ab5e5 solid}
 
             .wu{
                 display: none;
@@ -184,6 +185,7 @@
                 display: inline-block;
 
             }
+            .z
 
 			
 		</style>
@@ -202,14 +204,35 @@
 {#		<script src="{% static 'js/ming.js' %}"></script>#}
         <script>
             $(function () {
+                var indexd=0;
                 $('.wrapy-photo>div').click(function () {
-                    $('.wrapy-photo>div').attr('class','')
-                    $(this).attr('class','wp')
-                    var indexd = $(this).index()
-                    $('.LBY>div').attr('class','wu')
+                    $('.wrapy-photo>div').attr('class','');
+                    $(this).attr('class','wp');
+                    indexd = $(this).index();
+                    $('.LBY>div').attr('class','wu');
                     $('.LBY>div').eq(indexd).attr('class','logolb')
+                });
+                $('#redindex').click(function () {
+                    if (indexd!=0){
+                        indexd = indexd-1;
+                        $('.wrapy-photo>div').attr('class','');
+                        $('.wrapy-photo>div').eq(indexd).attr('class','wp');
+                        $('.LBY>div').attr('class','wu');
+                        $('.LBY>div').eq(indexd).attr('class','logolb')
+                    }
+                });
+                $('#addindex').click(function () {
+                    if (indexd!=5){
+                        indexd = indexd+1;
+                        $('.wrapy-photo>div').attr('class','');
+                        $('.wrapy-photo>div').eq(indexd).attr('class','wp');
+                        $('.LBY>div').attr('class','wu');
+                        $('.LBY>div').eq(indexd).attr('class','logolb')
+                    }
                 })
-            })
+
+
+            });
         </script>
 	</head>
 	<body>
@@ -531,9 +554,6 @@
                     </li>
                 {% endfor %}
 
-
-
-
         		</ul>
         	</div>
         </div>
@@ -547,7 +567,7 @@
 	        </div>
 	        <div class="m-content-wrapy">
 	        	<div class="wrapy-nav">
-	        		<a href="" class="UP">
+	        		<a class="UP" id="redindex">
 	        			<span class="I-ico" style="font-size: 30px;"></span>
 	        		</a>
 	        		<div class="wrapy-photo">
@@ -558,7 +578,7 @@
                         <div><img src="{% static 'img/imgs/l_md.jpg' %}" alt=""></div>
                         <div><img src="{% static 'img/imgs/l_mq.jpg' %}" alt=""></div>
 	        		</div>
-	        		<a href="" class="UP" style="position: absolute;bottom: 0px; border-bottom: 0px;">
+	        		<a class="UP" id="addindex" style="position: absolute;bottom: 0px; border-bottom: 0px;">
 	        			<span class="I-ico" style="font-size: 30px;"></span>
 	        		</a>
 	        	</div>
@@ -594,10 +614,10 @@
         			<span class="prev1">&lt;</span>
         			<span class="next1">&gt;</span>
         			<div class="DIVS">
-	        			<div class="DIV"></div>
-	        			<div class="DIV"></div>
-	        			<div class="DIV"></div>
-	        			<div class="DIV"></div>
+	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603030928528794.jpg' %}" alt=""></a></div>
+	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603030924526770.jpg' %}" alt=""></a></div>
+	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603081354339001.jpg' %}" alt=""></a></div>
+	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603111926478825.jpg' %}" alt=""></a></div>
         			</div>
         		</div>
         	</div>
