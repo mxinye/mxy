@@ -10,7 +10,9 @@ urlpatterns =[
     url(r'^gooddetail/(\d+)$',views.gooddetail,name='gooddetail'),
     url(r'^gooddetail1/(\d+)$',views.gooddetail1,name='gooddetail1'),
     url(r'^addgoodcard/(\d+)$',views.addgoodcard,name='addgoodcard'),
-    url(r'^cart/(\d+)$',views.card,name='card'),
+    url(r'^cart/$',views.card,name='card'),
+    url(r'^cartsave/$',views.cartsave,name='cartsave'),
+    url(r'^ming/$',views.ming,name='ming'),
 
 
 ]

@@ -4,15 +4,15 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-		<link href="css/shoppingCart.css" type="text/css" rel="stylesheet" />
+		<link href="{% static 'css/shoppingCart.css' %}" type="text/css" rel="stylesheet" />
 		<style>
 			@font-face {
 			  font-family: 'iconfont';
-			  src: url('{% static 'iconfont.eot' %}'); /* IE9*/
-			  src: url('{% static 'iconfont.eot?#iefix' %}') format('embedded-opentype'), /* IE6-IE8 */
-			  url('{% static 'iconfont.woff' %}') format('woff'), /* chrome、firefox */
-			  url('{% static 'iconfont.ttf' %}') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-			  url('{% static 'iconfont.svg#iconfont' %}') format('svg'); /* iOS 4.1- */
+			  src: url('{% static 'font/iconfont.eot' %}'); /* IE9*/
+			  src: url('{% static 'font/iconfont.eot?#iefix' %}') format('embedded-opentype'), /* IE6-IE8 */
+			  url('{% static 'font/iconfont.woff' %}') format('woff'), /* chrome、firefox */
+			  url('{% static 'font/iconfont.ttf' %}') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+			  url('{% static 'font/iconfont.svg#iconfont' %}') format('svg'); /* iOS 4.1- */
 			}
 			.I-ico{
 			    font-family:"iconfont" !important;
@@ -47,10 +47,17 @@
 			.hd .shop_m-nav .top_nav{width: 1190px; height: 36px; display: block; margin: 0 auto;}
 			.hd .shop_m-nav .top_nav li a{color: white; font-size:14px; font-weight:500;float: left; display: inline-block; width: 99px;line-height: 36px; text-align: center;}
 			.hd .shop_m-nav .top_nav li a:hover{background: #db0a76;}
+            .butt{
+               display: inline-block;height: 26px; width: 26px; border:1px solid #c7c7c7;text-align: center; line-height: 26px;
+            }
+            #num{
+                width: 30px; height: 22px; padding: 2px 5px; border: 1px solid #c7c7c7;outline:none;text-align: center;
+            }
 		</style>
 		<script src="{% static 'js/jquery-1.12.3.js' %}"></script>
 		<script src="{% static 'js/jquery.cookie.js' %}"></script>
 		<script src="{% static 'js/shops_cart.js' %}"></script>
+		<script src="{% static 'js/cart.js' %}"></script>
 	</head>
 	<body>
 		<div class="g-hd">
@@ -58,21 +65,28 @@
             <div id="j_topbar" class="m-topbar f-cb">
             	<div class="g-top">
             		<div class="g-topL">
-	            		<a href="index.html" class="indexs">
+	            		<a href="{% url 'clothes:index' %}" class="indexs">
 	            			<span class="I-ico" style="color: #f10582;">&#xe73d;</span> 衣扮网首页	
 	            		</a>
-	            		<a href="land.html" class="land">
+	            		{% if username %}
+                            <a href="#">{{ username }}</a>
+                            <a href="{% url 'clothes:logout' %}" class="logout">
+	            			[退出]
+	            		    </a>
+                        {% else %}
+                            <a href="{% url 'clothes:land' %}" class="land">
 	            			[登录]
-	            		</a>
-	            		<a href="register.html" class="register">
+	            		    </a>
+	            		    <a href="{% url 'clothes:register' %}" class="register">
 	            			[免费注册]
-	            		</a>
+	            		    </a>
+                        {% endif %}
             		</div>          	            		
             		<div class="g-topR">
             			<a href="#" target="_blank" style="color: #f10582;">下载app&nbsp;</a>
             			<a href="#" target="_blank">我的订单</a> <i>|</i>
-            			<a href="#" target="_blank"> 
-            				<span class="I-ico" style="color: #f10582;">&#xe95f;</span>购物车0件
+            			<a href="{% url 'clothes:card' %}" target="_blank">
+            				<span class="I-ico" style="color: #f10582;">&#xe95f;</span>购物车{{ goodsnum.goodnum__sum }}件
             			</a> <i>|</i>
             			<a href="#" target="_blank">
             				<span class="I-ico"style="color: gold;">&#xeaaa;</span>收藏夹
@@ -85,7 +99,7 @@
             <div class="hd">
             	<!--搜索栏-->
             	<div class="top">
-            		<div class="logo"><a href="index.html" target="_blank"><img src="{% static 'img/imgs/logo.png' %}"/></a></div>
+            		<div class="logo"><a href="{% url 'clothes:index' %}" target="_blank"><img src="{% static 'img/imgs/logo.png' %}"/></a></div>
             		<div class="top-sch">
             			<div class="form-box">
             				<form style="position: relative;">
@@ -106,7 +120,7 @@
             	</div>
             	<div class="shop_m-nav">
             		<ul class="top_nav">
-            			<li><a href="index.html">首页</a></li>
+            			<li><a href="{% url 'clothes:index' %}">首页</a></li>
             			<li><a href="">女装特卖</a></li>
             			<li><a href="">男装特卖</a></li>
             			<li><a href="">童装特卖</a></li>
@@ -135,13 +149,22 @@
 							<td class="w80">操作</td>
 						</tr>
                         {% for good in goods %}
-                            <tr class="shoppping-cart-content-head">
+                            <tr class="shoppping-cart-content-head good">
+{#                                商品id#}
                                 <td class="w80">{{ good.good_id }}</td>
-                                <td class="w560">{{ good.goodname }}</td>
-                                <td class="w80">{{ good.goodprice }}(元)</td>
-                                <td class="w120">{{ good.goodnum }}数量</td>
-                                <td class="w80">{{ good.goodnum }}*{{ good.goodprice }}小计(元)</td>
-                                <td class="w80">操作</td>
+{#                                商品名#}
+                                <td class="w560"><a href="{% url 'clothes:gooddetail' good.id %}">{{ good.goodname }}</a></td>
+{#                                商品单价#}
+                                <td class="w80">{{ good.goodprice }}</td>
+                                <td class="w120">
+                                    <a href="javaScript:void(0)" class="butt prev" id="">-</a>
+{#                                    商品数量#}
+                                    <input type="text" class="num" id="num" value="{{ good.goodnum }}">
+                                    <a href="javaScript:void(0)" class="butt add" id="">+</a>
+                                </td>
+                                {#商品数量#}
+                                <td class="w80 goodprice">{% widthratio good.goodnum 1.00 good.goodprice %}.00</td>
+                                <td class="w80"><input type="checkbox" class="good_s" ></td>
 						    </tr>
                         {% endfor %}
 
@@ -151,9 +174,6 @@
 							<div class="store-title">序号:</div>
 							<div class="store-activity"><a href="">店铺活动，满29免运费</a></div>
 						</th>
-	
-	
-	
 	
 					</tbody>
 					<tfoot>
@@ -168,7 +188,7 @@
 				<div class="totle-money-text">商品总价(不含运费) <span id="totalPrice"></span>元</div>
 				<div class="next-step">
 					<div class="next-step-tetx">
-						<a href="orderPage/orderPage.html">
+						<a href="{% static 'orderPage/orderPage.html' %}">
 							<div class="NST-bg"><img src="{% static 'img/imgs/next.jpg' %}"/></div>
 							<span>下一步，填写核对购物信息</span>
 						</a>

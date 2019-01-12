@@ -130,18 +130,25 @@
 	            		<a href="{% url 'clothes:index' %}" class="indexs">
 	            			<span class="I-ico" style="color: #f10582;">&#xe73d;</span> 衣扮网首页	
 	            		</a>
-	            		<a href="land.html" class="land">
+	            		{% if username %}
+                            <a href="#">{{ username }}</a>
+                            <a href="{% url 'clothes:logout' %}" class="logout">
+	            			[退出]
+	            		    </a>
+                        {% else %}
+                            <a href="{% url 'clothes:land' %}" class="land">
 	            			[登录]
-	            		</a>
-	            		<a href="register.html" class="register">
+	            		    </a>
+	            		    <a href="{% url 'clothes:register' %}" class="register">
 	            			[免费注册]
-	            		</a>
+	            		    </a>
+                        {% endif %}
             		</div>          	            		
             		<div class="g-topR">
             			<a href="#" target="_blank" style="color: #f10582;">下载app&nbsp;</a>
             			<a href="#" target="_blank">我的订单</a> <i>|</i>
-            			<a href="SHOP_Cart.html" target="_blank"> 
-            				<span class="I-ico" style="color: #f10582;">&#xe95f;</span>购物车0件
+            			<a href="{% url 'clothes:card' %}" target="_blank">
+            				<span class="I-ico" style="color: #f10582;">&#xe95f;</span>购物车{{ cart.goodnum }}件
             			</a> <i>|</i>
             			<a href="#" target="_blank">
             				<span class="I-ico"style="color: gold;">&#xeaaa;</span>收藏夹
@@ -211,7 +218,9 @@
         	<div class="shop_news">
         		<h2>{{ good.name }}</h2>
         		<div class="price">
-        			<div class="newprice">价格：<span>￥{{ good.price }}</span><label></label></div>
+        			<div class="newprice">价格：<span>￥{{ good.price }}</span>
+{#                        <label></label>#}
+                    </div>
         			<div class="oldprice">原价：<del>￥{{ good.old_price }}</del></div>
         		</div>
         		<div class="address">配送：<span class="dz">从广西 南宁 西乡塘区发货   </span><span>&nbsp;快递:0元</span></div>
@@ -219,7 +228,7 @@
         		<div class="shop_style">
         			<div class="shop_color">颜色：<span>粉红色</span></div>       				        			
         			<div class="shop_size">尺码：<span class="first_size">L</span><span>M</span><span>S</span></div>
-        			<div class="shop_num">购买数量：<a  class="redval">-</a><input type="text" maxlength="5" class="number" name="num" value="1" style="border-color: rgb(194, 194, 194);"><a  class="addval">+</a>  &nbsp;件(库存5991件)</div>
+        			<div class="shop_num">购买数量：<a href="javaScript:void(0)"  class="redval">-</a><input type="text" maxlength="5" class="number" name="num" value="1" style="border-color: rgb(194, 194, 194);"><a href="" class="addval">+</a>  &nbsp;件(库存5991件)</div>
         		</div>
         		<div class="buy">
         			<a class="shopping" href="">立即购买</a><a class="cart" ><span class="I-ico" style="color: #fff;">&#xe73b;</span> 加入购物车</a>

@@ -2,6 +2,8 @@ import hashlib
 import random
 
 import time
+
+from django.db.models import Sum
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
@@ -26,7 +28,7 @@ def get_md5_token():
 def outer(page):
     def inner(request,*args,**kwargs):
         if request.session.get('token'):
-            page(request,*args,**kwargs)
+            return page(request,*args,**kwargs)
         else:
             return redirect('clothes:land')
 
@@ -111,34 +113,63 @@ def logout(request):
 # 商品详情
 @outer
 def gooddetail(request,goodid):
+    token = request.session.get('token')
+    user = User.objects.get(token=token)
+
     good = Good.objects.get(pk=goodid)
-    return render(request,'Shop.html',context={'good':good})
+
+    cart = Cart.objects.get(user_id=user.id,good_id=goodid)
+    return render(request,'Shop.html',context={'good':good,'username':user.username,'cart':cart})
 @outer
 def gooddetail1(request,wheelid):
+    token = request.session.get('token')
+    user = User.objects.get(token=token)
+
     wheel = Wheel1.objects.get(pk=wheelid)
-    return render(request,'Shop.html',context={'good':wheel})
+    return render(request,'Shop.html',context={'good':wheel,'username':user.username})
 
 @outer
 def addgoodcard(request,goodid):
-    token = request.GET.get('token')
+    token = request.session.get('token')
     user_id = User.objects.get(token=token).id
 
     num = request.GET.get('goodnum')
     good = Good.objects.get(pk=goodid)
-
-    cart = Cart()
-    cart.user_id = user_id
-    cart.goodname = good.name
-    cart.goodnum = num
-    cart.good_id = goodid
-    cart.save()
+    if Cart.objects.get(user_id= user_id,goodnum=num):
+        cart0= Cart.objects.get(user_id=user_id,good_id=goodid)
+        cart0.goodnum = cart0.goodnum+num
+        cart0.save()
+    else:
+        cart = Cart()
+        cart.user_id = user_id
+        cart.goodname = good.name
+        cart.goodnum = num
+        cart.goodprice = good.price
+        cart.good_id = goodid
+        cart.save()
     return JsonResponse({'a':0})
 
 @outer
 def card(request):
-    token = request.GET.get('token')
+    token = request.session.get('token')
     user = User.objects.get(token=token)
 
-    goods = Cart.objects.filter(user_id=user.id)
 
-    return render(request,'SHOP_Cart.html',context={'goods':goods})
+    goods = Cart.objects.filter(user_id=user.id)
+    goodsnum = Cart.objects.aggregate(Sum('goodnum'))
+
+
+    return render(request,'SHOP_Cart.html',context={'goods':goods,'username':user.username,'goodsnum':goodsnum})
+
+
+def ming(request):
+    return render(request,'ming.html')
+
+
+def cartsave(request):
+    goodnum = request.GET.get('goodnum')
+    goodid = request.GET.get('goodid')
+    cart = Cart.objects.get(good_id=goodid)
+    cart.goodnum = goodnum
+    cart.save()
+    return JsonResponse({'res':0})
