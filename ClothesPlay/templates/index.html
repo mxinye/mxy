@@ -119,8 +119,9 @@
     		.m-content-con1 .m-content-wrapx1 .m-content-women div{float: left;}
     		.m-content-con1 .m-content-wrapx1 .m-content-man div{float: left;}
     		.m-content-con1 .m-content-wrapx1 .m-content-child div{float: left;}
-    		
+
     		.prev1{position: absolute; top: 44%; left: 0px; background: #000;color: #fff;font-size: 60px; font-weight: 700;height: 80px; line-height: 80px; opacity: 0.3;text-align: center; z-index: 999;cursor: pointer; display: none;}
+    		.prev1:hover{display: block;}
     		.next1{position: absolute; top: 44%; right: 0px; background: #000;color: #fff;font-size: 60px; font-weight: 700;height: 80px; line-height: 80px; opacity: 0.3;text-align: center; z-index: 999;cursor: pointer; display: none;}
     		.prev2{position: absolute; top: 44%; left: 0px; background: #000;color: #fff;font-size: 60px; font-weight: 700;height: 80px; line-height: 80px; opacity: 0.3;text-align: center; z-index: 999;cursor: pointer; display: none;}
     		.next2{position: absolute; top: 44%; right: 0px; background: #000;color: #fff;font-size: 60px; font-weight: 700;height: 80px; line-height: 80px; opacity: 0.3;text-align: center; z-index: 999;cursor: pointer; display: none;}
@@ -183,7 +184,11 @@
             .m-content-man .DIVS .DIV{display: none;}
             .m-content-child .DIVS .DIV{display: none;}
             #DIVchange{display: inline-block;}
-
+            .headimg{
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+            }
 			
 		</style>
 		
@@ -213,8 +218,8 @@
 	            		<a href="{% url 'clothes:index' %}" class="indexs">
 	            			<span class="I-ico" style="color: #f10582;"></span> 衣扮网首页
 	            		</a>
-                        {% if username %}
-                            <a href="#">{{ username }}</a>
+                        {% if userimg %}
+                            <a href="{% url 'clothes:ming' %}"><img class="headimg" src="{% static userimg %}" alt=""></a>
                             <a href="{% url 'clothes:logout' %}" class="logout">
 	            			[退出]
 	            		    </a>
@@ -536,7 +541,7 @@
 	        </div>
 	        <div class="m-content-wrapy">
 	        	<div class="wrapy-nav">
-	        		<a class="UP" id="redindex">
+	        		<a class="UP" id="redindex" href="javaScript:void(0)">
 	        			<span class="I-ico" style="font-size: 30px;"></span>
 	        		</a>
 	        		<div class="wrapy-photo">
@@ -547,7 +552,7 @@
                         <div><img src="{% static 'img/imgs/l_md.jpg' %}" alt=""></div>
                         <div><img src="{% static 'img/imgs/l_mq.jpg' %}" alt=""></div>
 	        		</div>
-	        		<a class="UP" id="addindex" style="position: absolute;bottom: 0px; border-bottom: 0px;">
+	        		<a href="javaScript:void(0)" class="UP" id="addindex" style="position: absolute;bottom: 0px; border-bottom: 0px;">
 	        			<span class="I-ico" style="font-size: 30px;"></span>
 	        		</a>
 	        	</div>

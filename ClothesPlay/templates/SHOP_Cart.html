@@ -86,7 +86,13 @@
             			<a href="#" target="_blank" style="color: #f10582;">下载app&nbsp;</a>
             			<a href="#" target="_blank">我的订单</a> <i>|</i>
             			<a href="{% url 'clothes:card' %}" target="_blank">
-            				<span class="I-ico" style="color: #f10582;">&#xe95f;</span>购物车{{ goodsnum.goodnum__sum }}件
+            				<span class="I-ico" style="color: #f10582;">&#xe95f;</span>购物车
+                            {% if goodsnum.goodnum__sum %}
+                                {{ goodsnum.goodnum__sum }}
+                            {% else %}
+                                0
+                            {% endif %}
+                            件
             			</a> <i>|</i>
             			<a href="#" target="_blank">
             				<span class="I-ico"style="color: gold;">&#xeaaa;</span>收藏夹
@@ -141,6 +147,7 @@
 				<table>
 					<thead>
 						<tr class="shoppping-cart-content-head">
+                            <td class="w80">选择</td>
 							<td class="w80">序号(商品ID)</td>
 							<td class="w560">商品</td>
 							<td class="w80">单价(元)</td>
@@ -150,6 +157,7 @@
 						</tr>
                         {% for good in goods %}
                             <tr class="shoppping-cart-content-head good">
+                                <td class="w80"><input type="checkbox" class="good_s" ></td>
 {#                                商品id#}
                                 <td class="w80">{{ good.good_id }}</td>
 {#                                商品名#}
@@ -164,7 +172,7 @@
                                 </td>
                                 {#商品数量#}
                                 <td class="w80 goodprice">{% widthratio good.goodnum 1.00 good.goodprice %}.00</td>
-                                <td class="w80"><input type="checkbox" class="good_s" ></td>
+                                <td class="w80"><input type="button" class="del" value="删除" ></td>
 						    </tr>
                         {% endfor %}
 

@@ -6,6 +6,7 @@ class User(models.Model):
     username =models.CharField(max_length=100)
     password = models.CharField(max_length=100)
     token = models.CharField(max_length=255)
+    headimg = models.CharField(max_length=100,default='img/imgs/desk.jpg')
 
     def __str__(self):
         return self.username

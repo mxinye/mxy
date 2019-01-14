@@ -1,78 +1,50 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css">
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.jquery.min.js"></script>#}
-      <style>
-    html, body {
-        position: relative;
-        height: 100%;
-    }
-    body {
-        background: #eee;
-        font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-        font-size: 14px;
-        color:#000;
-        margin: 0;
-        padding: 0;
-    }
-    .swiper-container {
-        width: 100%;
-        height: 100%;
+{#    <link rel="stylesheet" href="https://3.swiper.com.cn/dist/css/swiper.min.css">#}
 
-    }
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #fff;
-
-        /* Center slide text vertically */
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        align-items: center;
-    }
+    <style>
+        .name{font-size: 30px;}
+        img{width: 300px;height: 300px;border-radius: 50%;}
+        
+    
     </style>
+    <script src="{% static 'js/jquery-1.12.3.js' %}"></script>
+{#    <script>#}
+{#        $(function () {#}
+{#            $('.but').click(function () {#}
+{#                imgobj = document.getElementsByClassName('img');#}
+{#                var form = new FormData();#}
+{#                form.append('img',imgobj);#}
+{##}
+{#                $.ajax({#}
+{#                    'url':'{% url 'clothes:saveimg' %}',#}
+{#                    'type':'get',#}
+{#                    'data':form,#}
+{#                    'processData':false,#}
+{#                    'contentType':false,#}
+{#                    success:function (data) {#}
+{#                        alert('ok')#}
+{#                    }#}
+{#                })#}
+{#            })#}
+{#        })#}
+{#    </script>#}
 </head>
 <body>
-<div class="ming" style="width: 1000px;height: 500px;">
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide"><img defined&s=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&is=0,0&istype=0&ist=&jit=&bdtype=0&spn=0&pi=0&gsm=0&objurl=http%3A%2F%2Fwww.pptok.com%2Fwp-content%2Fuploads%2F2012%2F08%2Fxunguang-4.jpg&rpstart=0&rpnum=0&adpicid=0&force=undefined" alt=""></div>
-            <div class="swiper-slide">Slide 2</div>
-            <div class="swiper-slide">Slide 3</div>
-            <div class="swiper-slide">Slide 4</div>
-            <div class="swiper-slide">Slide 5</div>
-        </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-        <!-- Add Arrows -->
-        <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div>
+    <div class="startimg">
+        <div class="name">用户名：{{ user.username }}</div>
+        <div><h2> 头像：</h2></div>
+       <img src="{% static user.headimg %}" alt="">
+        <br>
+        <form action="{% url 'clothes:saveimg' %}" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            <input type="file" name="img" value="上传图片">
+        <input type="submit" class="but" value="提交">
+        </form>
     </div>
-    </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.min.js"></script>
-    <script>
-        var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev',
-        paginationClickable: true,
-        spaceBetween: 30,
-        centeredSlides: true,
-        autoplay: 2500,
-        autoplayDisableOnInteraction: false
-    });
-    </script>
 </body>
 </html>

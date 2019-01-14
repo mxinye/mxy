@@ -5,7 +5,7 @@ $(function () {
                     if (index3 == 4) {
                         index3 = 0;
                     } else if (index3 == -1) {
-                        index3 == 3;
+                        index3 = 3;
                     }
                     $('.ul3>li').attr('class', '');
                     $('.ul3>li').eq(index3).attr('class', 'z-crt2');

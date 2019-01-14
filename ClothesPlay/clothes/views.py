@@ -41,16 +41,17 @@ def index(request):
     users = User.objects.filter(token=token)
     if users.count():
         user = users.last()
-        username = user.username
+        userimg = user.headimg
+        print(user.headimg)
     else:
-        username = None
+        userimg = None
 
     # 获取商品信息
     goods = Good.objects.all()
     wheel1s = Wheel1.objects.all()
 
     data = {
-        'username': username,
+        'userimg': userimg,
         'goods': goods,
         'wheel1s':wheel1s,
     }
@@ -84,26 +85,18 @@ def register(request):
     if request.method=='GET':
         return render(request,'register.html')
     elif request.method=='POST':
-        username = request.POST.get('username')
-        password = request.POST.get('password')
-        password1 = request.POST.get('password1')
-        # print(username)
-        # print(password)
-        # print(password1)
-        if (username!="" and password ==password1) and (password !='' and password1 != ''):
-            user = User()
-            user.username = username
-            user.password = get_md5_pwd(password)
-            user.token = get_md5_token()
-            user.save()
+        username = request.POST.get('name')
+        password = request.POST.get('pwd')
 
-            request.session['token'] = user.token
-            response = redirect('clothes:index')
-            return response
-        else:
-            err = '密码不一致或密码不能为空或用户名不能为空'
-            return render(request,'register.html',context={'err':err})
+        user = User()
+        user.username = username
+        user.password = get_md5_pwd(password)
+        user.token = get_md5_token()
+        user.save()
 
+        request.session['token'] = user.token
+        return JsonResponse({'res':0})
+# 退出
 def logout(request):
     response = redirect('clothes:index')
     request.session.flush()
@@ -117,17 +110,29 @@ def gooddetail(request,goodid):
     user = User.objects.get(token=token)
 
     good = Good.objects.get(pk=goodid)
+    cart = Cart.objects.filter(user_id=user.id,good_id=goodid)
+    data = {
+        'good':good,
+        'username':user.username,
+        'cart':cart
+    }
 
-    cart = Cart.objects.get(user_id=user.id,good_id=goodid)
-    return render(request,'Shop.html',context={'good':good,'username':user.username,'cart':cart})
+    return render(request,'Shop.html',data)
+# 商品详情
 @outer
 def gooddetail1(request,wheelid):
     token = request.session.get('token')
     user = User.objects.get(token=token)
 
     wheel = Wheel1.objects.get(pk=wheelid)
-    return render(request,'Shop.html',context={'good':wheel,'username':user.username})
 
+    data = {
+        'good':wheel,
+        'username':user.username
+    }
+
+    return render(request,'Shop.html',data)
+# 添加到购物车
 @outer
 def addgoodcard(request,goodid):
     token = request.session.get('token')
@@ -135,9 +140,9 @@ def addgoodcard(request,goodid):
 
     num = request.GET.get('goodnum')
     good = Good.objects.get(pk=goodid)
-    if Cart.objects.get(user_id= user_id,goodnum=num):
-        cart0= Cart.objects.get(user_id=user_id,good_id=goodid)
-        cart0.goodnum = cart0.goodnum+num
+    if Cart.objects.filter(user_id= user_id,goodnum=num):
+        cart0= Cart.objects.filter(user_id=user_id,good_id=goodid)[0]
+        cart0.goodnum = cart0.goodnum+int(num)
         cart0.save()
     else:
         cart = Cart()
@@ -148,7 +153,7 @@ def addgoodcard(request,goodid):
         cart.good_id = goodid
         cart.save()
     return JsonResponse({'a':0})
-
+# 购物车
 @outer
 def card(request):
     token = request.session.get('token')
@@ -156,20 +161,65 @@ def card(request):
 
 
     goods = Cart.objects.filter(user_id=user.id)
+    # {'goodnum__sum': 6}
     goodsnum = Cart.objects.aggregate(Sum('goodnum'))
+    # print(goodsnum)
+    data ={
+        'goods':goods,
+        'username':user.username,
+        'goodsnum':goodsnum
+    }
 
-
-    return render(request,'SHOP_Cart.html',context={'goods':goods,'username':user.username,'goodsnum':goodsnum})
+    return render(request,'SHOP_Cart.html',data)
 
 
 def ming(request):
-    return render(request,'ming.html')
+    token = request.session.get('token')
+    user = User.objects.filter(token=token)[0]
+
+    data = {
+        'user':user,
+    }
 
 
+    return render(request,'ming.html',data)
+
+# 同步到数据库，更改
 def cartsave(request):
+    token = request.session.get('token')
+    user = User.objects.get(token=token)
+
     goodnum = request.GET.get('goodnum')
     goodid = request.GET.get('goodid')
-    cart = Cart.objects.get(good_id=goodid)
+    cart = Cart.objects.filter(good_id=goodid,user_id=user.id)[0]
     cart.goodnum = goodnum
     cart.save()
     return JsonResponse({'res':0})
+
+# 同步到数据库 ，删除
+def cartdelsave(request):
+    token = request.session.get('token')
+    user = User.objects.get(token=token)
+
+    goodid = request.GET.get('goodid')
+    cart = Cart.objects.filter(good_id=goodid, user_id=user.id)[0]
+    cart.delete()
+    return JsonResponse({'res':0})
+
+import os,time
+def saveimg(request):
+    img = request.FILES.get('img')
+    imgName = str(int(time.time()))+img.name
+    print(imgName)
+    f = open(os.path.join('static/img/imgs/', imgName), 'wb')
+    for chunk in img.chunks():
+        f.write(chunk)
+    f.close()
+
+    token = request.session.get('token')
+    user = User.objects.get(token=token)
+
+    user.headimg = '/img/imgs/'+img.name
+    user.save()
+    data = {'user':user}
+    return render(request, 'ming.html', data)

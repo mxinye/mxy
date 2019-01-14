@@ -56,59 +56,59 @@
 		<script src="{% static 'js/jquery-1.12.3.js' %}"></script>
 		<script src="{% static 'js/jquery.cookie.js' %}"></script>
 
-{#		<script>#}
-{#			$(function(){#}
-{#				$("#J_userName").focus(function(){#}
-{#					$("#J_userName").css("border-color","#F10582");#}
-{#					$("#J_userName").siblings().css("color","#F10582");#}
-{#					$(".msg-box").css("display","none");#}
-{#				})#}
-{#				$("#J_userName").blur(function(){#}
-{#					$("#J_userName").css("border-color","");#}
-{#					$("#J_userName").siblings().css("color","");#}
-{#					#}
-{#				})#}
-{#				$("#J_pwd").focus(function(){#}
-{#					$("#J_pwd").css("border-color","#F10582");#}
-{#					$("#J_pwd").siblings().css("color","#F10582");#}
-{#					$(".msg-box").css("display","none");#}
-{#				})#}
-{#				$("#J_pwd").blur(function(){#}
-{#					$("#J_pwd").css("border-color","");#}
-{#					$("#J_pwd").siblings().css("color","");#}
-{#				})#}
-{#				$(":button").click(function(){#}
-{#					var users = $.cookie("users");#}
-{#					if (users) {						#}
-{#						users = JSON.parse(users); //cookie中的所有注册过的用户#}
-{#						#}
-{#						var isExists = false; //表示是否存在该用户#}
-{#						for (var i=0; i<users.length; i++) {#}
-{#							if ( users[i].name == $("#J_userName").val() && users[i].pwd == $("#J_pwd").val() ) {#}
-{#								alert(" 登录成功! ");#}
-{#								$("#J_userName").val("");#}
-{#								$("#J_pwd").val("");#}
-{#								#}
-{#								isExists = true;#}
-{#								window.location.href='index.html'#}
-{#							}#}
-{#						}#}
-{#						#}
-{#						if (!isExists) {#}
-{#							console.log("用户名或密码错误, 请重新输入!");#}
-{#							$(".msg-box").css("display","block")#}
-{#							$(".msg-box").find(".msg-error").html("用户名或密码错误, 请重新输入!")#}
-{#						}#}
-{#						#}
-{#					}#}
-{#					else {#}
-{#						console.log("不存在用户, 请先注册!");#}
-{#					}#}
-{#				})#}
-{##}
-{#			})#}
-{#			#}
-{#		</script>#}
+		<script>
+			$(function(){
+				$("#J_userName").focus(function(){
+					$("#J_userName").css("border-color","#F10582");
+					$("#J_userName").siblings().css("color","#F10582");
+					$(".msg-box").css("display","none");
+				})
+				$("#J_userName").blur(function(){
+					$("#J_userName").css("border-color","");
+					$("#J_userName").siblings().css("color","");
+
+				})
+				$("#J_pwd").focus(function(){
+					$("#J_pwd").css("border-color","#F10582");
+					$("#J_pwd").siblings().css("color","#F10582");
+					$(".msg-box").css("display","none");
+				})
+				$("#J_pwd").blur(function(){
+					$("#J_pwd").css("border-color","");
+					$("#J_pwd").siblings().css("color","");
+				})
+				$(":button").click(function(){
+					var users = $.cookie("users");
+					if (users) {
+						users = JSON.parse(users); //cookie中的所有注册过的用户
+
+						var isExists = false; //表示是否存在该用户
+						for (var i=0; i<users.length; i++) {
+							if ( users[i].name == $("#J_userName").val() && users[i].pwd == $("#J_pwd").val() ) {
+								alert(" 登录成功! ");
+								$("#J_userName").val("");
+								$("#J_pwd").val("");
+
+								isExists = true;
+								window.location.href='index.html'
+							}
+						}
+
+						if (!isExists) {
+							console.log("用户名或密码错误, 请重新输入!");
+							$(".msg-box").css("display","block")
+							$(".msg-box").find(".msg-error").html("用户名或密码错误, 请重新输入!")
+						}
+
+					}
+					else {
+						console.log("不存在用户, 请先注册!");
+					}
+				})
+
+			})
+
+		</script>
 	</head>
 	<body>
 		<div class="g-hd">
