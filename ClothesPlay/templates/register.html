@@ -54,7 +54,7 @@
 			.g-ft .g-ft-wrap .g-ft-nav a{color: #666;}
 		</style>
 		<script  src="{% static 'js/jquery-1.12.3.js' %}"></script>
-		<script  src="{% static 'js/jquery.cookie.js' %}"></script>
+{#		<script  src="{% static 'js/jquery.cookie.js' %}"></script>#}
 		<!--引用incode 插件-->
 		<script  src="{% static 'js/jquery.idcode.js' %}" ></script>
 		<script>
@@ -76,8 +76,17 @@
 	    			var user=$(".text_form").val();
 	    			var reg=/^[a-zA-Z0-9_\u4e00-\u9fa5]+$/
 					if(reg.test(user)&&6<=user.length&&user.length<=20){
-						$("#user").html("用户名正确！")
-						$("#user").css("color","#71b83d")
+	    			    $.get('{% url 'clothes:checkname' %}',{'user':user},function (data) {
+	    			        console.log(data.res)
+                            if (data.res==0){
+                                $("#user").html("用户已经存在！")
+						        $("#user").css("color","red")
+                                return;
+                            }else {
+                                $("#user").html("用户名正确！")
+						        $("#user").css("color","#71b83d")
+                            }
+                        })
 					}
 	    			else{
 	    				$("#user").html("请输入6-20位非连续字符，支持中文数字及'_'组合。")
@@ -122,24 +131,24 @@
 	    			if(!Text.test($(".text_form").val())||!Pasd.test($(".password_form").val())||($(".text_form").val().length>20||$(".text_form").val().length<6)||($(".password_form").val().length>20||$(".password_form").val().length<6)||$(".ispassword_form").val()!=$(".password_form").val()||!IsBy){
 	    				return;
 	    			}
-					var users = $.cookie("users") ? JSON.parse($.cookie("users")) : [];
-					//先判断是否存在该用户
-					for (var i=0; i<users.length; i++) {
-						if ( users[i].name == $(".text_form").val() ) {
-							$("#user").html("用户名已存在! 不能注册相同的用户");
-							$("#user").css("color","red")
-							return;
-						}
-
-					}
+					{#var users = $.cookie("users") ? JSON.parse($.cookie("users")) : [];#}
+					{#//先判断是否存在该用户#}
+					{#for (var i=0; i<users.length; i++) {#}
+					{#	if ( users[i].name == $(".text_form").val() ) {#}
+					{#		$("#user").html("用户名已存在! 不能注册相同的用户");#}
+					{#		$("#user").css("color","red")#}
+					{#		return;#}
+					{#	}#}
+                    {##}
+					{#}#}
 					var user = {
 						name: $(".text_form").val(),
 						pwd: $(".password_form").val()
 					}
-					users.push(user);
-					$.cookie("users", JSON.stringify(users), {expires:10, path:"/"});
-					console.log( $.cookie("users") );
-					alert("注册成功");
+					{#users.push(user);#}
+					{#$.cookie("users", JSON.stringify(users), {expires:10, path:"/"});#}
+					{#console.log( $.cookie("users") );#}
+					{#alert("注册成功");#}
 					{#window.location.href='{% url 'clothes:register' %}'#}
                     {#var csrfToken = $("[name='csrfmiddlewaretoken']").val();#}
                     $.ajax({
@@ -148,7 +157,6 @@
                         'dataType':'json',
                         'data':{'name':user.name,'pwd':user.pwd,'csrfmiddlewaretoken':$("[name='csrfmiddlewaretoken']").val()},
                         success:function (data) {
-                            {#alert('0')#}
                             location.href='{% url 'clothes:index' %}'
                         }
                     })

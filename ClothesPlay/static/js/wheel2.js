@@ -17,7 +17,7 @@ $(function () {
                     index2++;
                 }
                 var time2 = setInterval(timeall2,2000);
-                $('.m-content-man>.DIVS').hover(function () {
+                $('.m-content-man').hover(function () {
                     clearInterval(time2);
                     $('.prev2').show();
                     $('.next2').show();
@@ -34,12 +34,12 @@ $(function () {
                     $('.m-content-man>.DIVS>div').attr('id','');
                     $('.m-content-man>.DIVS>div').eq(index2).attr('id','DIVchange');
                     clearInterval(time2)
-                    $('.prev2').hide();
-                    $('.next2').hide();
+                    // $('.prev2').hide();
+                    // $('.next2').hide();
                 },function () {
                     time2 = setInterval(timeall2,2000);
-                    $('.prev2').hide();
-                    $('.next2').hide();
+                    // $('.prev2').hide();
+                    // $('.next2').hide();
                 });
                 $('.prev2').click(function () {
                     index2 = index2-1;

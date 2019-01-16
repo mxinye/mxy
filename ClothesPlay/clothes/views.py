@@ -8,7 +8,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
-from clothes.models import User, Good, Wheel1, Cart
+from clothes.models import User, Good, Brand, Big, Woman, Man, Child,Cart
 
 
 # 使用md5加密算法【密码】
@@ -36,28 +36,37 @@ def outer(page):
 
 
 # 首页
+
+
+
 def index(request):
-    token = request.session.get('token')
-    users = User.objects.filter(token=token)
-    if users.count():
-        user = users.last()
-        userimg = user.headimg
-        print(user.headimg)
-    else:
-        userimg = None
+    try:
+        token = request.session.get('token')
+        user = User.objects.get(token=token)
+        username = user.username
+    except:
+        username = None
 
     # 获取商品信息
     goods = Good.objects.all()
-    wheel1s = Wheel1.objects.all()
+    brands = Brand.objects.all()
+    bigs = Big.objects.all()
+    womans = Woman.objects.all()
+    mans = Man.objects.all()
+    childs = Child.objects.all()
 
     data = {
-        'userimg': userimg,
         'goods': goods,
-        'wheel1s':wheel1s,
+        'brands':brands,
+        'bigs':bigs,
+        'username':username,
+        'womans':womans,
+        'mans':mans,
+        'childs':childs,
+
     }
-
     return render(request,'index.html',context=data)
-
+#
 # 登录
 def land(request):
     if request.method =='GET':
@@ -65,20 +74,31 @@ def land(request):
     elif request.method =='POST':
         username = request.POST.get('username')
         password = get_md5_pwd(request.POST.get('password'))
-        print(username)
-        print(password)
-        users = User.objects.filter(username=username,password=password)
-        if users.count():
-            user=users.first()
-            user.token = get_md5_token()
-            request.session['token'] = user.token
-            user.save()
+        try:
+            user = User.objects.get(username=username)
+            if user.password==password:
+                user.token = get_md5_token()
+                request.session['token'] = user.token
+                user.save()
 
-            response = redirect('clothes:index')
-            return response
-        else:
-            err='用户名或密码错误！'
-            return render(request,'land.html',context={'err':err})
+                response = redirect('clothes:index')
+                return response
+            else:
+                err = '密码错误！'
+        except:
+            err = '用户名不存在！'
+
+        return render(request, 'land.html', context={'err': err})
+
+# 在注册页面验证用户名是否存在
+def checkname(request):
+    username = request.GET.get('user')
+    try:
+        user = User.objects.get(username=username)
+        res = 0
+    except:
+        res = 1
+    return JsonResponse({'res':res})
 
 # 注册
 def register(request):
@@ -96,66 +116,77 @@ def register(request):
 
         request.session['token'] = user.token
         return JsonResponse({'res':0})
+
+
+
+
 # 退出
 def logout(request):
     response = redirect('clothes:index')
     request.session.flush()
 
     return response
-
-# 商品详情
+#
+# # 商品详情
 @outer
 def gooddetail(request,goodid):
     token = request.session.get('token')
     user = User.objects.get(token=token)
 
     good = Good.objects.get(pk=goodid)
-    cart = Cart.objects.filter(user_id=user.id,good_id=goodid)
+    goodsames = Good.objects.filter(category_id=good.category_id)
+    try:
+        cart = Cart.objects.get(good_id=good.id,user_id=user.id).goodnum
+    except:
+        cart=None
     data = {
         'good':good,
-        'username':user.username,
-        'cart':cart
+        'username': user.username,
+        'cart':cart,
+        'goodsames':goodsames,
     }
-
+    #
     return render(request,'Shop.html',data)
-# 商品详情
-@outer
-def gooddetail1(request,wheelid):
-    token = request.session.get('token')
-    user = User.objects.get(token=token)
-
-    wheel = Wheel1.objects.get(pk=wheelid)
-
-    data = {
-        'good':wheel,
-        'username':user.username
-    }
-
-    return render(request,'Shop.html',data)
+# # 商品详情
+# @outer
+# def gooddetail1(request,wheelid):
+#     token = request.session.get('token')
+#     user = User.objects.get(token=token)
+#
+#     # wheel = Wheel1.objects.get(pk=wheelid)
+#
+#     data = {
+#         # 'good':wheel,
+#         'username':user.username
+#     }
+#
+#     return render(request,'Shop.html',data)
 # 添加到购物车
 @outer
 def addgoodcard(request,goodid):
     token = request.session.get('token')
-    user_id = User.objects.get(token=token).id
+    user = User.objects.get(token=token)
 
     num = request.GET.get('goodnum')
+    color = request.GET.get('goodcolor')
+    size = request.GET.get('goodsize')
     good = Good.objects.get(pk=goodid)
-    if Cart.objects.filter(user_id= user_id,goodnum=num):
-        cart0= Cart.objects.filter(user_id=user_id,good_id=goodid)[0]
-        cart0.goodnum = cart0.goodnum+int(num)
-        cart0.save()
+    if Cart.objects.filter(user= user,good=good,goodcolor=color,goodsize=size):
+        cart= Cart.objects.get(user=user,good=good)
+        cart.goodnum = cart.goodnum+int(num)
+        cart.save()
     else:
         cart = Cart()
-        cart.user_id = user_id
-        cart.goodname = good.name
+        cart.user = user
+        cart.goodcolor = color
         cart.goodnum = num
-        cart.goodprice = good.price
-        cart.good_id = goodid
+        cart.goodsize = size
+        cart.good = good
         cart.save()
     return JsonResponse({'a':0})
 # 购物车
 @outer
-def card(request):
+def cart(request):
     token = request.session.get('token')
     user = User.objects.get(token=token)
 
@@ -223,3 +254,4 @@ def saveimg(request):
     user.save()
     data = {'user':user}
     return render(request, 'ming.html', data)
+

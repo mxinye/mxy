@@ -29,7 +29,7 @@
 			/*头部（g-hd）部分*/
 			#j_topbar{width: 1263px; height:30px;background: #F9F9F9;}
 			#j_topbar .g-top{width: 1190px; line-height: 30px; margin: 0px 36.5px;}
-			.g-topL{width: 191px; height: 30px; float: left;}
+			.g-topL{width: 260px; height: 30px; float: left;}
 			.indexs,.land,.register{color: #666}
 			.g-topR{width: 404px; height: 30px; float: right;}
 			.g-topR a{ color: #666;}
@@ -85,7 +85,7 @@
             		<div class="g-topR">
             			<a href="#" target="_blank" style="color: #f10582;">下载app&nbsp;</a>
             			<a href="#" target="_blank">我的订单</a> <i>|</i>
-            			<a href="{% url 'clothes:card' %}" target="_blank">
+            			<a href="{% url 'clothes:cart' %}" target="_blank">
             				<span class="I-ico" style="color: #f10582;">&#xe95f;</span>购物车
                             {% if goodsnum.goodnum__sum %}
                                 {{ goodsnum.goodnum__sum }}
@@ -159,11 +159,16 @@
                             <tr class="shoppping-cart-content-head good">
                                 <td class="w80"><input type="checkbox" class="good_s" ></td>
 {#                                商品id#}
-                                <td class="w80">{{ good.good_id }}</td>
+                                <td class="w80">{{ forloop.counter }}</td>
 {#                                商品名#}
-                                <td class="w560"><a href="{% url 'clothes:gooddetail' good.id %}">{{ good.goodname }}</a></td>
+                                <td class="w560"><a href="{% url 'clothes:gooddetail' good.good.id %}">
+                                    <span>{{ good.good.name }}</span>
+                                    <span>&nbsp;&nbsp;{{ good.goodcolor }}</span>
+                                    <span>&nbsp;&nbsp;{{ good.goodsize }}</span>
+                                </a></td>
+
 {#                                商品单价#}
-                                <td class="w80">{{ good.goodprice }}</td>
+                                <td class="w80">{{ good.good.price }}</td>
                                 <td class="w120">
                                     <a href="javaScript:void(0)" class="butt prev" id="">-</a>
 {#                                    商品数量#}
@@ -171,7 +176,7 @@
                                     <a href="javaScript:void(0)" class="butt add" id="">+</a>
                                 </td>
                                 {#商品数量#}
-                                <td class="w80 goodprice">{% widthratio good.goodnum 1.00 good.goodprice %}.00</td>
+                                <td class="w80 goodprice">{% widthratio good.goodnum 1.00 good.good.price %}.00</td>
                                 <td class="w80"><input type="button" class="del" value="删除" ></td>
 						    </tr>
                         {% endfor %}

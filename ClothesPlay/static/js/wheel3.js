@@ -20,7 +20,7 @@ $(function () {
                     index3++;
                 }
                 var time3 = setInterval(timeall3,2000);
-                $('.m-content-child>.DIVS').hover(function () {
+                $('.m-content-child').hover(function () {
                     clearInterval(time3);
                     $('.prev3').show();
                     $('.next3').show();
@@ -37,12 +37,12 @@ $(function () {
                     $('.m-content-child>.DIVS>div').attr('id','');
                     $('.m-content-child>.DIVS>div').eq(index3).attr('id','DIVchange');
                     clearInterval(time3)
-                    $('.prev3').hide();
-                    $('.next3').hide();
+                    // $('.prev3').hide();
+                    // $('.next3').hide();
                 },function () {
                     time3 = setInterval(timeall3,2000);
-                    $('.prev3').hide();
-                    $('.next3').hide();
+                    // $('.prev3').hide();
+                    // $('.next3').hide();
                 });
                 $('.prev3').click(function () {
                     index3 = index3-1;

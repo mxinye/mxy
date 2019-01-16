@@ -1,6 +1,7 @@
 $(function () {
         // var money = parseInt($('.TTM-all-money>span').html());
         // 获取商品数
+        $('.good_s').prop('checked', false)
         var check = $('.good_s');
         check.change(function () {
             //小计
@@ -137,4 +138,4 @@ $(function () {
 
 
 
-            });
+});

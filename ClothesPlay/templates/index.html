@@ -28,7 +28,7 @@
 			li{list-style-type: none;}
 			#j_topbar{width: 1263px; height:30px;background: #F9F9F9;}
 			#j_topbar .g-top{width: 1190px; line-height: 30px; margin: 0px 36.5px;}
-			.g-topL{width: 191px; height: 30px; float: left;}
+			.g-topL{width: 260px; height: 30px; float: left;}
 			.indexs,.land,.register{color: #666}
 			.g-topR{width: 404px; height: 30px; float: right;}
 			.g-topR a{ color: #666;}
@@ -181,6 +181,11 @@
             .wu{ display: none;}
             .logolb{display: inline-block;}
             .m-content-women .DIVS .DIV{display: none;}
+            .DIVS .DIV .woman1 {width: 472px;height:604px;float: left;border:5px solid gainsboro;}
+            .DIVS .DIV .woman1 img{width: 100%;height:604px;}
+            .DIVS .DIV .woman2 {width: 225px; height: 297px; float: left;border:5px solid gainsboro;}
+            .DIVS .DIV .woman2 img{width: 100%;height: 255px;}
+            .DIVS .DIV .woman2 span{font-size: 25px;color: #F10582;text-align: center;margin-left: 70px}
             .m-content-man .DIVS .DIV{display: none;}
             .m-content-child .DIVS .DIV{display: none;}
             #DIVchange{display: inline-block;}
@@ -218,8 +223,8 @@
 	            		<a href="{% url 'clothes:index' %}" class="indexs">
 	            			<span class="I-ico" style="color: #f10582;"></span> 衣扮网首页
 	            		</a>
-                        {% if userimg %}
-                            <a href="{% url 'clothes:ming' %}"><img class="headimg" src="{% static userimg %}" alt=""></a>
+                        {% if username %}
+                            <a href="">{{ username }}</a>
                             <a href="{% url 'clothes:logout' %}" class="logout">
 	            			[退出]
 	            		    </a>
@@ -236,7 +241,8 @@
             		<div class="g-topR">
             			<a href="#" target="_blank" style="color: #f10582;">下载app&nbsp;</a>
             			<a href="#" target="_blank">我的订单</a> <i>|</i>
-            			<a href="{% url 'clothes:card' %}" target="_blank">
+{#            			<a href="{% url 'clothes:card' %}" target="_blank">#}
+            			<a href="" target="_blank">
             				<span class="I-ico" style="color: #f10582;"></span>购物车
             			</a> <i>|</i>
             			<a href="#" target="_blank">
@@ -518,7 +524,7 @@
 {#        				<del>￥258.00</del>#}
 {#        				<i>7.0折</i>#}
 {#                    </li>#}
-                {% for good in goods %}
+                {% for good in goods|slice:':8' %}
                     <li>
                         <a href= "{% url 'clothes:gooddetail' good.id %}" class="imgdir"><img src="{% static good.imgdir %}"/></a>
                         <a href="{% url 'clothes:gooddetail' good.id %}">{{ good.name }}</a><br>
@@ -545,12 +551,17 @@
 	        			<span class="I-ico" style="font-size: 30px;"></span>
 	        		</a>
 	        		<div class="wrapy-photo">
-                        <div class="wp"><img src="{% static 'img/imgs/l_cs.jpg' %}" alt=""></div>
-                        <div><img src="{% static 'img/imgs/l_dzlsj.jpg' %}" alt=""></div>
-                        <div><img src="{% static 'img/imgs/l_eal.jpg' %}" alt=""></div>
-                        <div><img src="{% static 'img/imgs/l_llke.jpg' %}" alt=""></div>
-                        <div><img src="{% static 'img/imgs/l_md.jpg' %}" alt=""></div>
-                        <div><img src="{% static 'img/imgs/l_mq.jpg' %}" alt=""></div>
+{#                        <div class="wp"><img src="{% static 'img/imgs/l_cs.jpg' %}" alt=""></div>#}
+{#                        <div><img src="{% static 'img/imgs/l_dzlsj.jpg' %}" alt=""></div>#}
+                        {% for brand in brands %}
+                            {% if forloop.first %}
+                                <div class="wp"><img src="{% static brand.img %}" alt=""></div>
+                            {% elif forloop.counter > 6 %}
+                                <div style="display: none"><img src="{% static brand.img %}" alt=""></div>
+                            {% else %}
+                                <div><img src="{% static brand.img %}" alt=""></div>
+                            {% endif %}
+                        {% endfor %}
 	        		</div>
 	        		<a href="javaScript:void(0)" class="UP" id="addindex" style="position: absolute;bottom: 0px; border-bottom: 0px;">
 	        			<span class="I-ico" style="font-size: 30px;"></span>
@@ -558,12 +569,58 @@
 	        	</div>
 	        	<div class="wrapy">
 	        		<div class="LBY">
-                        <div class="logolb"><img src="{% static 'img/imgs/201606251751427984.jpg' %}" alt="" style="height: 530px;width: 500px"></div>
-                        <div class="wu"><img src="{% static 'img/imgs/linke_14682007362310.jpg' %}" alt="" style="height: 530px;width: 500px"></div>
-                        <div class="wu"><img src="{% static 'img/imgs/201607071144073964.jpg' %}" alt="" style="height: 530px;width: 500px"></div>
-                        <div class="wu"><img src="{% static 'img/imgs/201607071150074658.jpg' %}" alt="" style="height: 530px;width: 500px"></div>
-                        <div class="wu"><img src="{% static 'img/imgs/201607071340124768.jpg' %}" alt="" style="height: 530px;width: 500px"></div>
-                        <div class="wu"><img src="{% static 'img/imgs/linke_14682010808967.jpg' %}" alt="" style="height: 530px;width: 500px"></div>
+{#                        <div class="logolb"><img src="{% static 'img/imgs/201606251751427984.jpg' %}" alt="" style="height: 530px;width: 500px"></div>#}
+{#                        <div class="wu"><img src="{% static 'img/imgs/linke_14682007362310.jpg' %}" alt="" style="height: 530px;width: 500px"></div>#}
+{#                        {% for good in goods|slice:'8:' %}#}
+{#                            {% if forloop.first %}#}
+                        <div class="logolb">
+                            {% for good in goods|slice:'8:10' %}
+                                <a href="{% url 'clothes:gooddetail' good.id %}"><img src="{% static good.imgdir %}" alt="" style="height: 530px;width: 520px"></a>
+                            {% endfor %}
+                        </div>
+                        <div class="wu">
+                            {% for good in goods|slice:'10:12' %}
+                                <a href="{% url 'clothes:gooddetail' good.id %}"><img src="{% static good.imgdir %}" alt="" style="height: 530px;width: 520px"></a>
+                            {% endfor %}
+                        </div>
+                        <div class="wu">
+                            {% for good in goods|slice:'12:14' %}
+                                <a href="{% url 'clothes:gooddetail' good.id %}"><img src="{% static good.imgdir %}" alt="" style="height: 530px;width: 520px"></a>
+                            {% endfor %}
+                        </div>
+                        <div class="wu">
+                            {% for good in goods|slice:'14:16' %}
+                                <a href="{% url 'clothes:gooddetail' good.id %}"><img src="{% static good.imgdir %}" alt="" style="height: 530px;width: 520px"></a>
+                            {% endfor %}
+                        </div>
+                        <div class="wu">
+                            {% for good in goods|slice:'16:18' %}
+                                <a href="{% url 'clothes:gooddetail' good.id %}"><img src="{% static good.imgdir %}" alt="" style="height: 530px;width: 520px"></a>
+                            {% endfor %}
+                        </div>
+                        <div class="wu">
+                            {% for good in goods|slice:'18:20' %}
+                                <a href="{% url 'clothes:gooddetail' good.id %}"><img src="{% static good.imgdir %}" alt="" style="height: 530px;width: 520px"></a>
+                            {% endfor %}
+                        </div>
+                        <div class="wu">
+                            {% for good in goods|slice:'20:22' %}
+                                <a href="{% url 'clothes:gooddetail' good.id %}"><img src="{% static good.imgdir %}" alt="" style="height: 530px;width: 520px"></a>
+                            {% endfor %}
+                        </div>
+                        <div class="wu">
+                            {% for good in goods|slice:'22:24' %}
+                                <a href="{% url 'clothes:gooddetail' good.id %}"><img src="{% static good.imgdir %}" alt="" style="height: 530px;width: 520px"></a>
+                            {% endfor %}
+                        </div>
+                        <div class="wu">
+                            {% for good in goods|slice:'24:26' %}
+                                <a href="{% url 'clothes:gooddetail' good.id %}"><img src="{% static good.imgdir %}" alt="" style="height: 530px;width: 520px"></a>
+                            {% endfor %}
+                        </div>
+
+
+
 	        		</div>
 	        	</div>
 	        </div>
@@ -592,13 +649,75 @@
 {#	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603030924526770.jpg' %}" alt=""></a></div>#}
 {#	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603081354339001.jpg' %}" alt=""></a></div>#}
 {#	        			<div class="DIV"><a href=""><img src="{% static 'img/imgs/201603111926478825.jpg' %}" alt=""></a></div>#}
-                        {% for wheel1 in wheel1s %}
-                            {% if forloop.first %}
-      	        			    <div class="DIV" id="DIVchange"><a href="{% url 'clothes:gooddetail1' wheel1.id %}"><img src="{% static wheel1.imgdir %}" alt=""></a></div>
-                            {% else %}
-                                <div class="DIV"><a href="{% url 'clothes:gooddetail1' wheel1.id %}"><img src="{% static wheel1.imgdir %}" alt=""></a></div>
-                            {% endif %}
-                        {% endfor %}
+
+                             <div class="DIV" id="DIVchange">
+                                  {% for woman in womans|slice:':7' %}
+                                      {% if forloop.first %}
+                                          <div class="woman1">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                          </div>
+
+                                      {% else %}
+                                          <div class="woman2">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                              <span>￥{{ woman.price }}</span>
+                                          </div>
+
+                                      {% endif %}
+
+                                 {% endfor %}
+                             </div>
+                             <div class="DIV" id="DIVchange">
+                                  {% for woman in womans|slice:'7:14' %}
+                                      {% if forloop.first %}
+                                          <div class="woman1">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                          </div>
+
+                                      {% else %}
+                                          <div class="woman2">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                              <span>￥{{ woman.price }}</span>
+                                          </div>
+
+                                      {% endif %}
+
+                                 {% endfor %}
+                             </div>
+                             <div class="DIV" id="DIVchange">
+                                  {% for woman in womans|slice:'14:21' %}
+                                      {% if forloop.first %}
+                                          <div class="woman1">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                          </div>
+
+                                      {% else %}
+                                          <div class="woman2">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                              <span>￥{{ woman.price }}</span>
+                                          </div>
+
+                                      {% endif %}
+
+                                 {% endfor %}
+                             </div>
+                             <div class="DIV" id="DIVchange">
+                                  {% for woman in womans|slice:'21:28' %}
+                                      {% if forloop.first %}
+                                          <div class="woman1">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                          </div>
+
+                                      {% else %}
+                                          <div class="woman2">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                              <span>￥{{ woman.price }}</span>
+                                          </div>
+
+                                      {% endif %}
+
+                                 {% endfor %}
+                             </div>
 
         			</div>
         		</div>
@@ -619,13 +738,74 @@
         			<span class="prev2">&lt;</span>
         			<span class="next2">&gt;</span>
         			<div class="DIVS">
-	        			{% for wheel1 in wheel1s %}
-                            {% if forloop.first %}
-      	        			    <div class="DIV" id="DIVchange"><a href="{% url 'clothes:gooddetail1' wheel1.id %}"><img src="{% static wheel1.imgdir %}" alt=""></a></div>
-                            {% else %}
-                                <div class="DIV"><a href="{% url 'clothes:gooddetail1' wheel1.id %}"><img src="{% static wheel1.imgdir %}" alt=""></a></div>
-                            {% endif %}
-                        {% endfor %}
+	        			 <div class="DIV" id="DIVchange">
+                                  {% for woman in womans|slice:':7' %}
+                                      {% if forloop.first %}
+                                          <div class="woman1">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                          </div>
+
+                                      {% else %}
+                                          <div class="woman2">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                              <span>￥{{ woman.price }}</span>
+                                          </div>
+
+                                      {% endif %}
+
+                                 {% endfor %}
+                             </div>
+                             <div class="DIV" id="DIVchange">
+                                  {% for woman in womans|slice:'7:14' %}
+                                      {% if forloop.first %}
+                                          <div class="woman1">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                          </div>
+
+                                      {% else %}
+                                          <div class="woman2">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                              <span>￥{{ woman.price }}</span>
+                                          </div>
+
+                                      {% endif %}
+
+                                 {% endfor %}
+                             </div>
+                             <div class="DIV" id="DIVchange">
+                                  {% for woman in womans|slice:'14:21' %}
+                                      {% if forloop.first %}
+                                          <div class="woman1">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                          </div>
+
+                                      {% else %}
+                                          <div class="woman2">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                              <span>￥{{ woman.price }}</span>
+                                          </div>
+
+                                      {% endif %}
+
+                                 {% endfor %}
+                             </div>
+                             <div class="DIV" id="DIVchange">
+                                  {% for woman in womans|slice:'21:28' %}
+                                      {% if forloop.first %}
+                                          <div class="woman1">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                          </div>
+
+                                      {% else %}
+                                          <div class="woman2">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                              <span>￥{{ woman.price }}</span>
+                                          </div>
+
+                                      {% endif %}
+
+                                 {% endfor %}
+                             </div>
         			</div>
         		</div>
         	</div>
@@ -645,13 +825,74 @@
         			<span class="prev3">&lt;</span>
         			<span class="next3">&gt;</span>
         			<div class="DIVS">
-	        			{% for wheel1 in wheel1s %}
-                            {% if forloop.first %}
-      	        			    <div class="DIV" id="DIVchange"><a href="{% url 'clothes:gooddetail1' wheel1.id %}"><img src="{% static wheel1.imgdir %}" alt=""></a></div>
-                            {% else %}
-                                <div class="DIV"><a href="{% url 'clothes:gooddetail1' wheel1.id %}"><img src="{% static wheel1.imgdir %}" alt=""></a></div>
-                            {% endif %}
-                        {% endfor %}
+	        			 <div class="DIV" id="DIVchange">
+                                  {% for woman in womans|slice:':7' %}
+                                      {% if forloop.first %}
+                                          <div class="woman1">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                          </div>
+
+                                      {% else %}
+                                          <div class="woman2">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                              <span>￥{{ woman.price }}</span>
+                                          </div>
+
+                                      {% endif %}
+
+                                 {% endfor %}
+                             </div>
+                             <div class="DIV" id="DIVchange">
+                                  {% for woman in womans|slice:'7:14' %}
+                                      {% if forloop.first %}
+                                          <div class="woman1">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                          </div>
+
+                                      {% else %}
+                                          <div class="woman2">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                              <span>￥{{ woman.price }}</span>
+                                          </div>
+
+                                      {% endif %}
+
+                                 {% endfor %}
+                             </div>
+                             <div class="DIV" id="DIVchange">
+                                  {% for woman in womans|slice:'14:21' %}
+                                      {% if forloop.first %}
+                                          <div class="woman1">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                          </div>
+
+                                      {% else %}
+                                          <div class="woman2">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                              <span>￥{{ woman.price }}</span>
+                                          </div>
+
+                                      {% endif %}
+
+                                 {% endfor %}
+                             </div>
+                             <div class="DIV" id="DIVchange">
+                                  {% for woman in womans|slice:'21:28' %}
+                                      {% if forloop.first %}
+                                          <div class="woman1">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                          </div>
+
+                                      {% else %}
+                                          <div class="woman2">
+                                          <a href="{% url 'clothes:gooddetail' woman.id %}"><img src="{% static woman.img %}" alt=""></a>
+                                              <span>￥{{ woman.price }}</span>
+                                          </div>
+
+                                      {% endif %}
+
+                                 {% endfor %}
+                             </div>
         			</div>
         		</div>
         	</div>

@@ -56,5 +56,85 @@ $(function(){
 			i==0 ?"": i++;
 			show_timer();
 	})
-	  
+
+
+
+	//品牌轮播
+	var indexd=0;
+
+	function add() {
+		if (indexd<5){
+			indexd = indexd+1;
+			$('.wrapy-photo>div').attr('class','');
+			$('.wrapy-photo>div').eq(indexd).attr('class','wp');
+			$('.LBY>div').attr('class','wu');
+			$('.LBY>div').eq(indexd).attr('class','logolb');
+			$('.LBY>div').attr('class','wu');
+			$('.LBY>div').eq(indexd).attr('class','logolb')
+		}else if (indexd>=5 && indexd<8) {
+            indexd = indexd + 1;
+            $('.wrapy-photo>div').attr('class', '');
+            $('.wrapy-photo>div').eq(indexd).attr('class', 'wp').show();
+            $('.wrapy-photo>div').eq(indexd - 6).hide()
+			$('.LBY>div').attr('class','wu');
+			$('.LBY>div').eq(indexd).attr('class','logolb')
+        }
+    }
+    function red() {
+		if (indexd>3 && indexd<=8){
+			indexd = indexd-1;
+			$('.wrapy-photo>div').attr('class','');
+			$('.wrapy-photo>div').eq(indexd).attr('class','wp');
+			$('.LBY>div').attr('class','wu');
+			$('.LBY>div').eq(indexd).attr('class','logolb')
+		}else if(indexd>0 && indexd<=3){
+			indexd = indexd-1;
+			$('.wrapy-photo>div').attr('class','');
+			$('.wrapy-photo>div').eq(indexd).attr('class','wp').show();
+			$('.wrapy-photo>div').eq(indexd+6).hide()
+			$('.LBY>div').attr('class','wu');
+			$('.LBY>div').eq(indexd).attr('class','logolb')
+		}
+    }
+	function timeInter () {
+		if(indexd==8){
+			indexd=0
+			$('.wrapy-photo>div').eq(indexd).attr('class','wp').show();
+			$('.wrapy-photo>div').slice(1,3).each(function () {
+				$(this).show()
+			})
+			$('.wrapy-photo>div').slice(6,9).each(function () {
+				$(this).hide()
+			})
+			$('.LBY>div').attr('class','wu');
+			$('.LBY>div').eq(indexd).attr('class','logolb')
+		}else {
+			add()
+		}
+    }
+    var timeP = setInterval(timeInter,1500)
+	$('.wrapy-photo>div').click(function () {
+		$('.wrapy-photo>div').attr('class','');
+		$(this).attr('class','wp');
+		indexd = $(this).index();
+		$('.LBY>div').attr('class','wu');
+		$('.LBY>div').eq(indexd).attr('class','logolb')
+	});
+	$('#redindex').click(function () {
+		red()
+	});
+	$('#addindex').click(function () {
+		add()
+	});
+	$('.LBY').hover(function () {
+		clearInterval(timeP)
+    },function () {
+		timeP = setInterval(timeInter,1500)
+    })
+	$('.wrapy-nav').hover(function () {
+		clearInterval(timeP)
+    },function () {
+		timeP = setInterval(timeInter,1500)
+    })
 })
+
