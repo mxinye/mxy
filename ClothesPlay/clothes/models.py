@@ -77,7 +77,7 @@ class Cart(models.Model):
     goodcolor = models.CharField(max_length=20)
     goodsize = models.CharField(max_length=20)
     good = models.ForeignKey(Good)
-
+    isselect = models.BooleanField(default=True)
     class Meta:
         db_table = 'cart'
 
@@ -102,7 +102,39 @@ class Child(Base):
         db_table = 'child'
 
 
+class Order(models.Model):
+    # 用户
+    user = models.ForeignKey(User)
+    # 状态
+    # 0 未付款
+    # 1 已付款
+    status = models.IntegerField(default=0)
+    # 创建时间
+    createtime = models.DateTimeField(auto_now_add=True)
+    # 订单号
+    identifier = models.CharField(max_length=256)
 
+    class Meta:
+        db_table = 'order'
+
+
+
+# 订单商品 模型类
+# 一个订单 对应 多个商品
+class OrderGood(models.Model):
+    # 订单
+    order = models.ForeignKey(Order)
+    # 商品
+    good = models.ForeignKey(Good)
+    # 商品规格
+    number = models.IntegerField()
+
+    size = models.CharField(max_length=20)
+
+    color = models.CharField(max_length=20)
+
+    class Meta:
+        db_table = 'ordergood'
 
 
 

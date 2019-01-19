@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title></title>
+		<title>商品详情</title>
 		<style>
 			@font-face {
 			  font-family: 'iconfont';
@@ -59,7 +59,7 @@
 			.shop_con .shop_news h2{width: 540px; line-height: 56px;font-size: 16px; color: #333;}
 			.shop_con .shop_news .price{width: 540px; height: 64px; padding: 5px 0px; background:#f7f7f7 ;}
 			.shop_con .shop_news .price .newprice{line-height: 36px; width: 150px; color: #7a7a7a;}
-			.shop_con .shop_news .price .newprice span{color: #eb2323; font-size: 22px; font-weight: 600;padding-left: 20px;}
+			.shop_con .shop_news .price .newprice span{color: #eb2323; font-size: 21px; font-weight: 600;padding-left: 20px;}
 			.shop_con .shop_news .price .newprice label{width: 44px; height: 16px; display: inline-block; position: absolute; background: url({% static good.imgdir %});background-position:0 -105px; overflow: hidden;}
 			.shop_con .shop_news .price .oldprice{line-height: 28px; width: 150px;color: #7a7a7a;}
 			.shop_con .shop_news .price .oldprice del{font-size: 14px; padding-left: 20px;}
@@ -90,11 +90,7 @@
 		<script src="{% static 'js/jquery-1.12.3.js' %}"></script>
 		<script src="{% static 'js/shop.js' %}"></script>
         <script>
-            $(function () {
 
-
-
-            })
         </script>
 	</head>
 	<body>
@@ -125,8 +121,8 @@
             			<a href="#" target="_blank">我的订单</a> <i>|</i>
             			<a href="{% url 'clothes:cart' %}" target="_blank">
             				<span class="I-ico" style="color: #f10582;">&#xe95f;</span>购物车
-                            {% if cart %}
-                                {{ cart }}
+                            {% if cart.goodnum__sum %}
+                                {{ cart.goodnum__sum }}
                             {% else %}
                                 0
                             {% endif %}
@@ -180,12 +176,9 @@
         <div class="shop_con">
         	<div class="shop_show">
         		<div class="big_shop">
+                    <img style="width:390px; height: 390px;" src="{% static good.imgdir %}" />
                     {% for goodsame in goodsames %}
-                        {% if forloop.first %}
-                            <img style="width:390px; height: 390px;" src="{% static goodsame.imgdir %}" />
-                        {% else %}
-                            <img style="display: none;width:390px; height: 390px;"src="{% static goodsame.imgdir %}"/>
-                        {% endif %}
+                        <img style="display: none;width:390px; height: 390px;"src="{% static goodsame.imgdir %}"/>
                     {% endfor %}
 {#        			<img style="width:390px; height: 390px;" src="{% static good.imgdir %}" />#}
 {#        			<img style="display: none;"src="{% static good.imgdir %}"/>#}
@@ -194,6 +187,7 @@
 
         		</div>
        			<div class="small_shop">
+                    <li><img style="width: 68px; height: 68px;" src="{% static good.imgdir %}" /></li>
                     {% for goodsame in goodsames %}
                         <li><img style="width: 68px; height: 68px;" src="{% static goodsame.imgdir %}" /></li>
                     {% endfor %}
@@ -203,13 +197,10 @@
        			</div>	
         	</div>
         	<div class="fdj">
+                <img  src="{% static good.imgdir %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px;"/>
                 {% for goodsame in goodsames %}
-                        {% if forloop.first %}
-                           <img  src="{% static goodsame.imgdir %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px;"/>
-                        {% else %}
-                            <img  src="{% static goodsame.imgdir %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px; display: none;"/>
-                        {% endif %}
-                    {% endfor %}
+                    <img  src="{% static goodsame.imgdir %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px; display: none;"/>
+                {% endfor %}
 {#        		<img  src="{% static good.imgdir %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px;"/>#}
 {#        		<img  src="{% static good.imgdir %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px; display: none;"/>#}
 {#        		<img  src="{% static good.imgdir %}" style="position: absolute; left: 0; top: 0; width: 800px; height: 800px; display: none;"/>#}

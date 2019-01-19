@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title></title>
+		<title>我的首页</title>
 		<style>
 		@font-face {
 		  font-family: 'iconfont';
@@ -240,9 +240,9 @@
             		</div>
             		<div class="g-topR">
             			<a href="#" target="_blank" style="color: #f10582;">下载app&nbsp;</a>
-            			<a href="#" target="_blank">我的订单</a> <i>|</i>
+            			<a href="" target="_blank">我的订单</a> <i>|</i>
 {#            			<a href="{% url 'clothes:card' %}" target="_blank">#}
-            			<a href="" target="_blank">
+            			<a href="{% url 'clothes:cart' %}" target="_blank">
             				<span class="I-ico" style="color: #f10582;"></span>购物车
             			</a> <i>|</i>
             			<a href="#" target="_blank">
@@ -452,7 +452,7 @@
             				</div>
             			</li>
             			<li class="z-crt" style="padding-left: 30px;">
-            				<a href="#" style="color:#f10582;">
+            				<a href="{% url 'clothes:index' %}" style="color:#f10582;">
             				<span class="I-ico" style="color: red;"></span> 首页
             				</a>
             			</li>

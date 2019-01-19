@@ -29,7 +29,6 @@ $(function(){
 	$('.redval').click(function () {
 		var value = parseInt($('.number').val());
 		if (value==1){
-
 		}else {
 			$('.number').attr('value',(value-1).toString());
 		};
@@ -42,25 +41,25 @@ $(function(){
 	});
 
 	$('.cart').click(function () {
-		var goodnum = $('.number').val();
-		var goodid = $('.number').attr('goodid')
-		$.ajax({
-		'url':'/addgoodcard/'+goodid+'/',
-		'type':'get',
-		'data':{
-			'goodnum':goodnum,
-			'goodcolor':color,
-			'goodsize':size,
-		},
-		'dataType':'json',
-		success:(function (data) {
-			console.log(data)
-			if (data.a==0)
-				alert('添加成功')
-			location.href='/gooddetail/'+goodid+'/'
-		})
+        $.get('/yangzheng/',function (stus) {
+			if (stus.status!=1){
+				alert('请登录后操作！！！')
+				location.href='/land/'
+			}else {
+				var goodnum = $('.number').val();
+				var goodid = $('.number').attr('goodid')
+				$.get('/addgoodcard/',{'goodid':goodid,'goodnum':goodnum,'goodcolor':color,'goodsize':size},function (data) {
+					console.log(data)
+					if (data.a==0)
+						alert('添加成功')
+					location.href='/gooddetail/'+goodid+'/'
+				})
+			}
+        })
+
+
 	})
-	})
+
 
 
 
@@ -78,6 +77,7 @@ $(function(){
 		indeximg = $(this).index()
 		$('.big_shop>img').hide()
 		$('.big_shop>img').eq(indeximg).show()
+		$(".fdj ").find("img").eq(indeximg).css("display","block").siblings().css("display","none")
     })
 	$(".shop_show .big_shop").mouseenter(function(){
 		$(".fdj").show();
@@ -131,9 +131,6 @@ $(function(){
 				_smallImg.mouseleave(function(){
 					_smallArea.hide(); //隐藏小区域
 				})
-				
-					
-				
-		
+
 
 })

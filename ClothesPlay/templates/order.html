@@ -3,7 +3,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>我的购物车</title>
+		<title>我的订单</title>
 		<link href="{% static 'css/shoppingCart.css' %}" type="text/css" rel="stylesheet" />
 		<style>
 			@font-face {
@@ -19,7 +19,7 @@
 			    font-size:16px;font-style:normal;
 			    -webkit-font-smoothing: antialiased;
 			    -webkit-text-stroke-width: 0.2px;
-			    -moz-osx-font-smoothing: grayscale;		    
+			    -moz-osx-font-smoothing: grayscale;
 			 }
 			*{margin: 0px; padding: 0px;}
 			body,html{font-size: 12px; margin: 0 auto;}
@@ -47,23 +47,41 @@
 			.hd .shop_m-nav .top_nav{width: 1190px; height: 36px; display: block; margin: 0 auto;}
 			.hd .shop_m-nav .top_nav li a{color: white; font-size:14px; font-weight:500;float: left; display: inline-block; width: 99px;line-height: 36px; text-align: center;}
 			.hd .shop_m-nav .top_nav li a:hover{background: #db0a76;}
-            .butt{
-               display: inline-block;height: 26px; width: 26px; border:1px solid #c7c7c7;text-align: center; line-height: 26px;
-            }
-            #num{
-                width: 30px; height: 22px; padding: 2px 5px; border: 1px solid #c7c7c7;outline:none;text-align: center;
-            }
-            .all{float: left;}
-            .all input{position: relative;top: 3px;}
-            .all a:hover{color: red}
-            .w560 a:hover{color: red}
-
-
 		</style>
 		<script src="{% static 'js/jquery-1.12.3.js' %}"></script>
 		<script src="{% static 'js/jquery.cookie.js' %}"></script>
 		<script src="{% static 'js/shops_cart.js' %}"></script>
-		<script src="{% static 'js/cart.js' %}"></script>
+{#		<script src="{% static 'js/cart.js' %}"></script>#}
+        <script>
+            $(function () {
+                var sum = 0;
+                $('.oneprice').each(function () {
+                    sum1 = $(this).html()
+                    sum = sum+parseInt(sum1)
+                    console.log(sum)
+
+            })
+                $('#totalPrice').html(sum+'.00')
+
+                $('#pay').click(function () {
+                    var identifier = $(this).attr('identifier')
+                    data = {
+                        'identifier':identifier
+                    }
+                    console.log(identifier)
+                    $.get('/pay/', data, function (response) {
+                        console.log(response)
+                        if (response.status == 1){
+                            window.open(response.alipayurl, target='_self')
+                    }
+        })
+    })
+})
+
+
+
+
+        </script>
 	</head>
 	<body>
 		<div class="g-hd">
@@ -72,7 +90,7 @@
             	<div class="g-top">
             		<div class="g-topL">
 	            		<a href="{% url 'clothes:index' %}" class="indexs">
-	            			<span class="I-ico" style="color: #f10582;">&#xe73d;</span> 衣扮网首页	
+	            			<span class="I-ico" style="color: #f10582;">&#xe73d;</span> 衣扮网首页
 	            		</a>
 	            		{% if username %}
                             <a href="#">{{ username }}</a>
@@ -87,18 +105,12 @@
 	            			[免费注册]
 	            		    </a>
                         {% endif %}
-            		</div>          	            		
+            		</div>
             		<div class="g-topR">
             			<a href="#" target="_blank" style="color: #f10582;">下载app&nbsp;</a>
             			<a href="#" target="_blank">我的订单</a> <i>|</i>
-            			<a href="{% url 'clothes:cart' %}" target="_blank">
-            				<span class="I-ico" style="color: #f10582;">&#xe95f;</span>购物车
-                            {% if goodsum.goodnum__sum %}
-                                {{ goodsum.goodnum__sum }}
-                            {% else %}
-                                0
-                            {% endif %}
-                            件
+            			<a href="#" target="_blank">
+            				<span class="I-ico" style="color: #f10582;">&#xe95f;</span>购物车0件
             			</a> <i>|</i>
             			<a href="#" target="_blank">
             				<span class="I-ico"style="color: gold;">&#xeaaa;</span>收藏夹
@@ -107,7 +119,7 @@
             			<a href="#" target="_blank">帮助中心</a>
             		</div>
             	</div>
-            </div>           
+            </div>
             <div class="hd">
             	<!--搜索栏-->
             	<div class="top">
@@ -132,7 +144,7 @@
             	</div>
             	<div class="shop_m-nav">
             		<ul class="top_nav">
-            			<li><a href="{% url 'clothes:index' %}">首页</a></li>
+            			<li><a href="index.html">首页</a></li>
             			<li><a href="">女装特卖</a></li>
             			<li><a href="">男装特卖</a></li>
             			<li><a href="">童装特卖</a></li>
@@ -140,85 +152,64 @@
             			<li><a href=""><span class="I-ico">&#xe6e0;</span> 限时特卖</a></li>
             			<li><a href="">明星穿搭秘籍</a></li>
             			<li><a href="">美衣盒子</a><img style="position: absolute; left: 800px; top: 120px;" src="{% static 'img/imgs/hot.gif' %}"/></li>
-            		</ul>           		
+            		</ul>
             	</div>
-            </div>	
+            </div>
         </div>
         <div id="my-shopping-cart">
 			<div class="cart-text">
-				<h1>我的购物车</h1>
-				<p>查看购物车商品清单，增加减少商品数量，并勾选想要的商品进入下一步操作。</p>
+				<h1>我的订单   编号:  {{ order.identifier }}</h1>
+				<p>查看订单，并进入下一步操作。
+                状态:
+            <span style="background: red; color: white;font-size: 15px">
+                {% if order.status == 0 %}
+                    未付款
+                {% elif order.status == 1 %}
+                    已付款
+                {% endif %}
+            </span>
+                </p>
+
 			</div>
 			<div id="shopCar" class="shoppping-cart-content">
 				<table>
 					<thead>
 						<tr class="shoppping-cart-content-head">
-                            <td class="w80">选择</td>
 							<td class="w80">序号(商品ID)</td>
 							<td class="w560">商品</td>
 							<td class="w80">单价(元)</td>
 							<td class="w120">数量</td>
 							<td class="w80">小计(元)</td>
-							<td class="w80">操作</td>
 						</tr>
-                        {% for good in goods %}
-                            <tr class="shoppping-cart-content-head good" goodid="{{ good.good.id }}" cartid="{{ good.id }}" >
-                                {% if good.isselect %}
-                                    <td class="w80"><input type="checkbox" class="good_s" checked="checked" ></td>
-                                {% else %}
-                                    <td class="w80"><input type="checkbox" class="good_s" ></td>
-                                {% endif %}
-
-{#                                商品id#}
+                        {% for ordergood in order.ordergood_set.all %}
+                            <tr class="shoppping-cart-content-head">
                                 <td class="w80">{{ forloop.counter }}</td>
-{#                                商品名#}
-                                <td class="w560"><a href="{% url 'clothes:gooddetail' good.good.id %}">
-                                    <span>{{ good.good.name }}</span>
-                                    &nbsp;&nbsp;<span>{{ good.goodcolor }}</span>
-                                    &nbsp;&nbsp;<span>{{ good.goodsize }}</span>
-                                </a></td>
-
-{#                                商品单价#}
-                                <td class="w80">{{ good.good.price }}</td>
-                                <td class="w120">
-                                    <a href="javaScript:void(0)" class="butt prev" id="">-</a>
-{#                                    商品数量#}
-                                    <input type="text" class="num" id="num" value="{{ good.goodnum }}">
-                                    <a href="javaScript:void(0)" class="butt add" id="">+</a>
+                                <td class="w560">{{ ordergood.good.name }}
+                                    &nbsp;<span>{{ ordergood.color }}</span>
+                                    &nbsp;<span>{{ ordergood.size }}</span>
                                 </td>
-                                {#商品数量#}
-                                <td class="w80 goodprice">{% widthratio good.goodnum 1.00 good.good.price %}.00</td>
-                                <td class="w80"><input type="button" class="del" value="删除" ></td>
+                                <td class="w80">{{ ordergood.good.price }}(元)</td>
+                                <td class="w120">{{ ordergood.number }}</td>
+                                <td class="w80 oneprice">{% widthratio ordergood.number 1.00 ordergood.good.price %}.00</td>
 						    </tr>
                         {% endfor %}
+
 					</thead>
 					<tbody>
-						<th class="shoppping-cart-content-title" colspan="6">
-							<div class="store-title">序号:</div>
-							<div class="store-activity"><a href="">店铺活动，满29免运费</a></div>
-						</th>
-	
 					</tbody>
 					<tfoot>
 						<th class="tstore-totle-money" colspan="6">
-                            <div class="all">全选:<input type="checkbox" class="allchange">&nbsp;&nbsp;&nbsp;
-                                <a href="#" class="delchoose">删除所选商品</a>&nbsp;&nbsp;&nbsp;
-                                <a href="#"class="delall">清空购物车</a>
-                            </div>
-
-							<div class="TTM-text">商品合计:</div>
-							<div class="TTM-all-money"><span></span>元</div>
 						</th>
-					</tfoot> 
-	
+					</tfoot>
+
 				</table>
-					
+
 				<div class="totle-money-text">商品总价(不含运费) <span id="totalPrice"></span>元</div>
 				<div class="next-step">
 					<div class="next-step-tetx">
-						<a href="javaScript:void(0)" id="order">
+						<div id="pay" identifier="{{ order.identifier }}">
 							<div class="NST-bg"><img src="{% static 'img/imgs/next.jpg' %}"/></div>
-							<span >下一步，生成订单</span>
+							<span style="margin-left: 60px">付款</span>
 						</a>
 					</div>
 	
